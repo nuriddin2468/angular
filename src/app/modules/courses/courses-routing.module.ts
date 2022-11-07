@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CoursesComponent } from './components/courses/courses.component';
-import { WrapperComponent } from '../../shared/components/wrapper/wrapper.component';
+import { WrapperComponent } from '@shared/components/wrapper/wrapper.component';
+import { CoursesComponent } from '@modules/courses/components/courses/courses.component';
 
 const routes: Routes = [
   {

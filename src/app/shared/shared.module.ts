@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/wrapper/header/header.component';
-import { FooterComponent } from './components/wrapper/footer/footer.component';
-import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { RouterOutlet } from '@angular/router';
+import { WrapperComponent } from '@shared/components/wrapper/wrapper.component';
+import { HeaderComponent } from '@shared/components/wrapper/header/header.component';
+import { FooterComponent } from '@shared/components/wrapper/footer/footer.component';
 
 
 const components = [
   HeaderComponent,
-  FooterComponent
+  FooterComponent,
+  WrapperComponent
 ]
 
 @NgModule({
   declarations: [
     ...components,
-    WrapperComponent
   ],
   imports: [
     CommonModule,
