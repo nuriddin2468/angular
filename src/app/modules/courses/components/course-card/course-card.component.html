@@ -1,0 +1,17 @@
+<div class="content">
+  <div class="time">
+    <div>{{course.duration}}</div>
+    <div>{{course.creationDate | date}}</div>
+  </div>
+
+  <h2>{{course.title}}</h2>
+  <div class="description-wrapper">
+    <div class="description">
+      {{course.description}}
+    </div>
+    <div class="action">
+      <div><button (click)="edit.emit()">Edit</button></div>
+      <div><button (click)="delete.emit()">Delete</button></div>
+    </div>
+  </div>
+</div>

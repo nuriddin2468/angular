@@ -1,0 +1,31 @@
+.content {
+  margin-top: 20px;
+  display: flex;
+  padding: 30px 20px;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 12px;
+
+  .time {
+    display: flex;
+    justify-content: flex-end;
+    div {
+      margin-right: 12px;
+    }
+  }
+
+  .description-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .action {
+      display: flex;
+      div {
+        margin-right: 12px;
+        button {
+          padding: 4px 12px;
+        }
+      }
+    }
+  }
+}
