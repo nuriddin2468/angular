@@ -1,4 +1,4 @@
-.content {
+header {
   background-color: black;
   padding: 8px 30px;
   color: white;
@@ -8,7 +8,8 @@
 
   .right-side {
     display: flex;
-    div {
+    list-style-type: none;
+    li {
       margin-right: 20px;
     }
   }

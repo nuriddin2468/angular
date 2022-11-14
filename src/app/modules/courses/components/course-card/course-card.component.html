@@ -1,7 +1,7 @@
 <div class="content">
   <div class="time">
-    <div>{{course.duration}}</div>
-    <div>{{course.creationDate | date}}</div>
+    <div>{{course.duration | date: 'm\'h\':ss\' min\''}}</div>
+    <div>{{course.creationDate | date: 'd MMM, y'}}</div>
   </div>
 
   <h2>{{course.title}}</h2>
@@ -10,8 +10,8 @@
       {{course.description}}
     </div>
     <div class="action">
-      <div><button (click)="edit.emit()">Edit</button></div>
-      <div><button (click)="delete.emit()">Delete</button></div>
+      <button (click)="edit.emit()">Edit</button>
+      <button (click)="delete.emit()">Delete</button>
     </div>
   </div>
 </div>
