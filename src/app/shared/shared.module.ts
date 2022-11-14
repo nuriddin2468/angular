@@ -4,17 +4,19 @@ import { RouterOutlet } from '@angular/router';
 import { WrapperComponent } from '@shared/components/wrapper/wrapper.component';
 import { HeaderComponent } from '@shared/components/wrapper/header/header.component';
 import { FooterComponent } from '@shared/components/wrapper/footer/footer.component';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 
 
 const components = [
   HeaderComponent,
   FooterComponent,
-  WrapperComponent
+  WrapperComponent,
+  BreadcrumbsComponent
 ]
 
 @NgModule({
   declarations: [
-    ...components,
+    ...components
   ],
   imports: [
     CommonModule,

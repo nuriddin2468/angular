@@ -1,0 +1,15 @@
+:host {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  app-header {
+    min-height: 100px;
+  }
+
+  main {
+    flex-grow: 1;
+    background-color: #e8e8e8;
+  }
+}

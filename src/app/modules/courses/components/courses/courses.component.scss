@@ -1,0 +1,15 @@
+.content {
+  padding: 20px 25px;
+
+  .add-course-wrapper {
+    .action {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 24px;
+      .btn {
+        font-size: 18px;
+        padding: 4px 12px;
+      }
+    }
+  }
+}
