@@ -1,0 +1,17 @@
+<div class="content">
+  <div class="time">
+    <div>{{course.duration | date: 'm\'h\':ss\' min\''}}</div>
+    <div>{{course.creationDate | date: 'd MMM, y'}}</div>
+  </div>
+
+  <h2>{{course.title}}</h2>
+  <div class="description-wrapper">
+    <div class="description">
+      {{course.description}}
+    </div>
+    <div class="action">
+      <button (click)="edit.emit()">Edit</button>
+      <button (click)="delete.emit()">Delete</button>
+    </div>
+  </div>
+</div>

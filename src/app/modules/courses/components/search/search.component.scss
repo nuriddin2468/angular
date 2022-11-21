@@ -1,0 +1,15 @@
+.content {
+  display: flex;
+  align-items: center;
+  div {
+    margin-right: 12px;
+  }
+  input {
+    padding: 8px 12px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 4px 8px;
+  }
+}
