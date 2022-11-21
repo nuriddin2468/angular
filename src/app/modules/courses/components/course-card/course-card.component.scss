@@ -1,7 +1,8 @@
+@import "src/variables.scss";
 .content {
-  margin-top: 20px;
+  margin-top: $margin-top-default;
   display: flex;
-  padding: 30px 20px;
+  padding: $content-padding;
   flex-direction: column;
   background-color: white;
   border-radius: 12px;
@@ -22,7 +23,7 @@
       display: flex;
       button {
         margin-right: 12px;
-        padding: 4px 12px;
+        padding: $btn-padding;
       }
     }
   }
