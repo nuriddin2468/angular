@@ -1,8 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoursesComponent } from './courses.component';
-import { coursesMock } from '@shared/mocks/courses.mock';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { coursesMock } from '@app/testing/courses.mock';
+import { By } from '@angular/platform-browser';
+import { MockBreadcrumbsComponent } from '@app/testing/components/mock-breadcrumbs.component';
+import { MockSearchComponent } from '@app/testing/components/mock-search.component';
+import { MockCourseCardComponent } from '@app/testing/components/mock-course-card.component';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -13,8 +16,10 @@ describe('CoursesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         CoursesComponent,
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        MockBreadcrumbsComponent,
+        MockSearchComponent,
+        MockCourseCardComponent
+      ]
     })
     .compileComponents();
 
@@ -27,6 +32,24 @@ describe('CoursesComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render breadcrumbs, search, course-card components', function () {
+    const breadcrumbElement = fixture.debugElement.query(
+      By.directive(MockBreadcrumbsComponent)
+    );
+    const searchElement = fixture.debugElement.query(
+      By.directive(MockSearchComponent)
+    );
+    const courseCardElement = fixture.debugElement.query(
+      By.directive(MockCourseCardComponent)
+    );
+    const breadcrumb = breadcrumbElement.componentInstance;
+    const search = searchElement.componentInstance;
+    const course = courseCardElement.componentInstance;
+    expect(breadcrumb).toBeTruthy();
+    expect(search).toBeTruthy();
+    expect(course).toBeTruthy();
   });
 
   it('should show 2 course cards', function () {

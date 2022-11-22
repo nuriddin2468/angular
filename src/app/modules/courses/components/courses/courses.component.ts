@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
-import { coursesMock } from '@shared/mocks/courses.mock';
+import { coursesMock } from '@app/testing/courses.mock';
 
 @Component({
   selector: 'app-courses',
