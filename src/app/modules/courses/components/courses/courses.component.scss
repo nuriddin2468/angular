@@ -1,14 +1,15 @@
+@import "src/variables.scss";
 .content {
-  padding: 20px 25px;
+  padding: $content-padding;
 
   .add-course-wrapper {
     .action {
       display: flex;
       justify-content: flex-end;
-      margin-top: 24px;
+      margin-top: $margin-top-default;
       .btn {
         font-size: 18px;
-        padding: 4px 12px;
+        padding: $btn-padding;
       }
     }
   }

@@ -1,6 +1,8 @@
+@import "src/variables.scss";
+
 footer {
   display: flex;
-  padding: 20px 30px;
+  padding: $content-padding;
   justify-content: flex-end;
   color: white;
   background-color: black;

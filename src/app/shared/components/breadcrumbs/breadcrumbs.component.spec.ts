@@ -20,4 +20,11 @@ describe('BreadcrumbsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render text', function () {
+    const el = fixture.nativeElement as HTMLElement;
+    const contentElement = el.querySelector('.content');
+    expect(contentElement).toBeTruthy();
+    expect(contentElement.textContent.trim()).toBe('Courses');
+  });
 });
