@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { MockBreadcrumbsComponent } from '@app/testing/components/mock-breadcrumbs.component';
 import { MockSearchComponent } from '@app/testing/components/mock-search.component';
 import { MockCourseCardComponent } from '@app/testing/components/mock-course-card.component';
+import { TestingModule } from '@app/testing/testing.module';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -19,7 +20,8 @@ describe('CoursesComponent', () => {
         MockBreadcrumbsComponent,
         MockSearchComponent,
         MockCourseCardComponent
-      ]
+      ],
+      imports: [TestingModule]
     })
     .compileComponents();
 
