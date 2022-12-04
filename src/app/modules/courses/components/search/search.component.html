@@ -1,8 +1,10 @@
-<div class="content">
-  <div>
-    <input type="text" [(ngModel)]="searchText">
+<form (submit)="submit()">
+  <div class="content">
+    <div>
+      <input name="searchText" type="text" [(ngModel)]="searchText">
+    </div>
+    <div>
+      <button type="submit">Search</button>
+    </div>
   </div>
-  <div>
-    <button (click)="submit()">Search</button>
-  </div>
-</div>
+</form>

@@ -7,6 +7,8 @@ import { MockBreadcrumbsComponent } from '@app/testing/components/mock-breadcrum
 import { MockSearchComponent } from '@app/testing/components/mock-search.component';
 import { MockCourseCardComponent } from '@app/testing/components/mock-course-card.component';
 import { TestingModule } from '@app/testing/testing.module';
+import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
+import { MockFilterPipe } from '@app/testing/pipes/mock-filter.pipe';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -21,7 +23,12 @@ describe('CoursesComponent', () => {
         MockSearchComponent,
         MockCourseCardComponent
       ],
-      imports: [TestingModule]
+      imports: [TestingModule],
+      providers: [
+        {
+          provide: FilterPipe, useClass: MockFilterPipe
+        }
+      ]
     })
     .compileComponents();
 

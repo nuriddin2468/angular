@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
 import { coursesMock } from '@app/testing/courses.mock';
+import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
 
 @Component({
   selector: 'app-courses',
@@ -10,8 +11,11 @@ import { coursesMock } from '@app/testing/courses.mock';
 export class CoursesComponent implements OnInit {
 
   courses: Course[] = [...coursesMock];
+  private backup = [...coursesMock]
 
-  constructor() { }
+  constructor(
+    private filterPipe: FilterPipe
+  ) { }
 
   ngOnInit(): void {
   }
@@ -20,4 +24,7 @@ export class CoursesComponent implements OnInit {
     return item.id;
   }
 
+  search(text: string) {
+    this.courses = this.filterPipe.transform(this.backup, text);
+  }
 }

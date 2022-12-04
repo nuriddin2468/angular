@@ -2,15 +2,23 @@
 
 <div class="content">
 
-  <app-search></app-search>
+  <app-search (search)="search($event)"></app-search>
 
   <div class="add-course-wrapper">
     <div class="action">
       <button class="btn">Add course</button>
     </div>
-    <ng-container *ngFor="let course of courses; trackBy: trackByIdentity">
-      <app-course-card [course]="course"></app-course-card>
+    <ng-container *ngIf="courses.length; else: noData">
+      <ng-container *ngFor="let course of (courses | orderBy); trackBy: trackByIdentity">
+        <app-course-card [course]="course"></app-course-card>
+      </ng-container>
     </ng-container>
+
+    <ng-template #noData>
+      <div class="no-data">
+          No data. Feel free to add new course
+      </div>
+    </ng-template>
   </div>
 
 </div>

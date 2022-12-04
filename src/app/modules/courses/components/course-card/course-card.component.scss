@@ -3,6 +3,7 @@
   margin-top: $margin-top-default;
   display: flex;
   padding: $content-padding;
+  border: 1px solid;
   flex-direction: column;
   background-color: white;
   border-radius: 12px;
@@ -26,5 +27,13 @@
         padding: $btn-padding;
       }
     }
+  }
+
+  fa-icon {
+    color: goldenrod;
+  }
+
+  .top-rated {
+    background-color: rgba(245, 146, 27, 0.4);
   }
 }

@@ -1,10 +1,16 @@
-<div class="content">
+<div class="content"
+     [appCoursePlateStatus]="course.creationDate"
+     [ngClass]="course.topRated ? 'top-rated' : null"
+>
   <div class="time">
-    <div>{{course.duration}}</div>
-    <div>{{course.creationDate}}</div>
+    <div>{{course.duration | duration}}</div>
+    <div>{{course.creationDate | date}}</div>
   </div>
 
-  <h2>{{course.title}}</h2>
+  <h2>
+    {{course.title | uppercase }}
+    <fa-icon *ngIf="course.topRated" [icon]="starIcon"></fa-icon>
+  </h2>
   <div class="description-wrapper">
     <div class="description">
       {{course.description}}
