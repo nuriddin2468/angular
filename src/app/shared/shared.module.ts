@@ -9,6 +9,7 @@ import { CoursePlateStatusDirective } from './directives/course-plate-status/cou
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { OrderByPipe } from './pipes/orderBy/order-by.pipe';
 import { FilterPipe } from './pipes/filter/filter.pipe';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 
 const components = [
@@ -32,7 +33,8 @@ const directives = [
   declarations: [
     ...components,
     ...pipes,
-    ...directives
+    ...directives,
+    DialogComponent
   ],
   imports: [
     CommonModule,

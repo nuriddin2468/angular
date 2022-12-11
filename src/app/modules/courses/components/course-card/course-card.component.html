@@ -16,8 +16,8 @@
       {{course.description}}
     </div>
     <div class="action">
-      <button (click)="edit.emit()">Edit</button>
-      <button (click)="delete.emit()">Delete</button>
+      <button (click)="edit.emit(course.id)">Edit</button>
+      <button (click)="delete.emit(course.id)">Delete</button>
     </div>
   </div>
 </div>
