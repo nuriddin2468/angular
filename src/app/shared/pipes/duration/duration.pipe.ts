@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { padZero } from '@shared/utils/utils';
 
 @Pipe({
   name: 'duration'
@@ -12,7 +13,7 @@ export class DurationPipe implements PipeTransform {
     date.setMinutes(value);
     const hours = date.getHours();
     let minutes = `${date.getMinutes()}`;
-    if (Number(minutes) < 10) minutes = '0' + minutes;
+    if (Number(minutes) < 10) minutes = padZero(minutes);
     return hours ? `${hours}h ${minutes} min`: `${minutes} min`;
   }
 

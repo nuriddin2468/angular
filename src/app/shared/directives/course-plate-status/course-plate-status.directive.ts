@@ -15,12 +15,12 @@ export class CoursePlateStatusDirective implements OnInit {
     if(!currentStatusColor) return;
     (this.el.nativeElement as HTMLElement).style.borderColor = currentStatusColor;
   }
-
   private getStatusColor(): string | null {
+    const day = 24*60*60*1000;
     const today = new Date();
     const creationDateTime = new Date(this.appCoursePlateStatus).getTime();
     const currentDateTime = today.getTime();
-    const dateOffset = (24*60*60*1000) * 14;
+    const dateOffset = day * 14;
     if (creationDateTime < currentDateTime && creationDateTime >= (currentDateTime - dateOffset))
       return 'green';
     if (creationDateTime > currentDateTime)
