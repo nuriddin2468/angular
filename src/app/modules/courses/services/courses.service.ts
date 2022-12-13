@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { coursesMock } from '@app/testing/courses.mock';
 
 @Injectable({
@@ -25,9 +25,8 @@ export class CoursesService {
     this._courses.next([...courses, course as Course]);
   }
 
-  getCourse(id: number): Course {
-    const courses = this._courses.getValue();
-    return courses.find(item => item.id === id);
+  getCourse(id: number): Observable<Course> {
+    return this._courses.pipe(map(res => res.find(item => item.id === id)))
   }
 
   updateCourse(course: Course): void {

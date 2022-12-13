@@ -3,7 +3,7 @@ import { Course } from '@modules/courses/types/course';
 import { CoursesService } from '@modules/courses/services/courses.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
-import { filter } from 'rxjs';
+import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -32,14 +32,17 @@ export class CoursesComponent implements OnInit {
   }
 
   deleteCourse(courseId: number) {
-    const course = this.coursesService.getCourse(courseId);
-    this.dialogService.open<boolean>(DialogComponent, {
-      width: '300px',
-      data: {
-        title: 'Warning!',
-        question: `Would you like to delete course: </br><b>${course.title}</b>`
-      }
-    }).closed.pipe(filter(data => data))
-      .subscribe(() => this.coursesService.removeCourse(courseId));
+    this.coursesService.getCourse(courseId)
+      .pipe(
+        switchMap(course =>
+          this.dialogService.open<boolean>(DialogComponent, {
+            width: '300px',
+            data: {
+              title: 'Warning!',
+              question: `Would you like to delete course: </br><b>${course.title}</b>`
+            }
+          }).closed.pipe(filter(data => data))
+        )
+      ).subscribe(() => this.coursesService.removeCourse(courseId));
   }
 }
