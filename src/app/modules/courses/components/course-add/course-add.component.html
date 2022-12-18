@@ -1,0 +1,86 @@
+<div class="card">
+  <form [formGroup]="form">
+    <h2>New course</h2>
+    <div class="input-field">
+      <div>
+        Title:
+      </div>
+      <div class="status">
+        *required
+      </div>
+    </div>
+    <input
+      formControlName="title"
+      type="text"
+      placeholder="Text input"
+    />
+
+    <div class="input-field">
+      <div>
+        Description:
+      </div>
+      <div class="status">
+        *required
+      </div>
+    </div>
+    <textarea
+      formControlName="description"
+      placeholder="Add description"
+    ></textarea>
+
+
+    <div class="fixed-size">
+      <div class="input-field">
+        <div>
+          Duration:
+        </div>
+        <div class="status">
+          *required
+        </div>
+      </div>
+      <input
+        formControlName="duration"
+        type="number"
+        placeholder="minutes"
+      />
+    </div>
+
+
+    <div class="fixed-size">
+      <div class="input-field">
+        <div>
+          Date:
+        </div>
+        <div class="status">
+          *required
+        </div>
+      </div>
+      <input
+        formControlName="date"
+        type="date"
+      />
+    </div>
+
+    <div class="fixed-size">
+      <div class="input-field">
+        <div>
+          Authors:
+        </div>
+        <div class="status">
+          *required
+        </div>
+      </div>
+      <input
+        formControlName="authors"
+        type="text"
+        placeholder="Start typing"
+      />
+    </div>
+
+    <div class="footer">
+      <button>Cancel</button>
+      <button class="success">Save</button>
+    </div>
+
+  </form>
+</div>

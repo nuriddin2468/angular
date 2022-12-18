@@ -3,3 +3,18 @@ $btn-padding:  4px 12px;
 $margin-top-default: 24px;
 $background: #e8e8e8;
 $muted: #6c757d;
+
+@mixin card-props($width: auto, $padding: 24px){
+  padding: $padding;
+  width: $width;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  border-radius: 6px;
+}
+
+@mixin centralize() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
