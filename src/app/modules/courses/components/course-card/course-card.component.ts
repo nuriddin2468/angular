@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,16 +7,11 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.scss']
 })
-export class CourseCardComponent implements OnInit {
+export class CourseCardComponent {
 
   @Input() course: Course;
-  @Output() edit = new EventEmitter<void>();
-  @Output() delete = new EventEmitter<void>();
+  @Output() edit = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
 
   starIcon = faStar;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 }

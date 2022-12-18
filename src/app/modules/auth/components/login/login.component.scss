@@ -1,0 +1,42 @@
+@import "src/variables.scss";
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+
+  .card {
+    padding: 24px;
+    width: 360px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    border-radius: 6px;
+
+    .name-status {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      margin-top: 12px;
+      .status {
+        color: $muted;
+      }
+    }
+    input {
+      width: 100%;
+      font-size: 14px;
+      padding: 6px 4px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+      button {
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+    }
+  }
+}

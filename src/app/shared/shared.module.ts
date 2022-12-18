@@ -9,13 +9,16 @@ import { CoursePlateStatusDirective } from './directives/course-plate-status/cou
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { OrderByPipe } from './pipes/orderBy/order-by.pipe';
 import { FilterPipe } from './pipes/filter/filter.pipe';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { IsAuthenticatedDirective } from './directives/is-authenticated.directive';
 
 
 const components = [
   HeaderComponent,
   FooterComponent,
   WrapperComponent,
-  BreadcrumbsComponent
+  BreadcrumbsComponent,
+  DialogComponent
 ]
 
 const pipes = [
@@ -25,7 +28,8 @@ const pipes = [
 ]
 
 const directives = [
-  CoursePlateStatusDirective
+  CoursePlateStatusDirective,
+  IsAuthenticatedDirective
 ]
 
 @NgModule({
@@ -33,15 +37,16 @@ const directives = [
     ...components,
     ...pipes,
     ...directives
-  ],
-  imports: [
-    CommonModule,
-    RouterOutlet
+
   ],
   exports: [
     ...components,
     ...pipes,
     ...directives,
+  ],
+  imports: [
+    CommonModule,
+    RouterOutlet
   ]
 })
 export class SharedModule { }

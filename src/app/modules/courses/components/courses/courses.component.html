@@ -1,5 +1,3 @@
-<app-breadcrumbs></app-breadcrumbs>
-
 <div class="content">
 
   <app-search (search)="search($event)"></app-search>
@@ -8,9 +6,9 @@
     <div class="action">
       <button class="btn">Add course</button>
     </div>
-    <ng-container *ngIf="courses.length; else: noData">
+    <ng-container *ngIf="(courses$ | async | filter : searchValue) as courses; else: noData">
       <ng-container *ngFor="let course of (courses | orderBy); trackBy: trackByIdentity">
-        <app-course-card [course]="course"></app-course-card>
+        <app-course-card (delete)="deleteCourse($event)" [course]="course"></app-course-card>
       </ng-container>
     </ng-container>
 

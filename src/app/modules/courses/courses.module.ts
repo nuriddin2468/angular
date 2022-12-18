@@ -9,6 +9,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
     CoursesRoutingModule,
     SharedModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule
   ],
   providers: [
     FilterPipe
