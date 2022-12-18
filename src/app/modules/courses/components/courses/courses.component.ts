@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
-import { coursesMock } from '@app/testing/courses.mock';
+import { CoursesService } from '@modules/courses/services/courses.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -9,9 +12,13 @@ import { coursesMock } from '@app/testing/courses.mock';
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Course[] = [...coursesMock];
+  courses$ = this.coursesService.getCourses();
+  searchValue: string = '';
 
-  constructor() { }
+  constructor(
+    private coursesService: CoursesService,
+    private dialogService: Dialog
+  ) { }
 
   ngOnInit(): void {
   }
@@ -20,4 +27,22 @@ export class CoursesComponent implements OnInit {
     return item.id;
   }
 
+  search(text: string) {
+    this.searchValue = text;
+  }
+
+  deleteCourse(courseId: number) {
+    this.coursesService.getCourse(courseId)
+      .pipe(
+        switchMap(course =>
+          this.dialogService.open<boolean>(DialogComponent, {
+            width: '300px',
+            data: {
+              title: 'Warning!',
+              question: `Would you like to delete course: </br><b>${course.title}</b>`
+            }
+          }).closed.pipe(filter(data => data))
+        )
+      ).subscribe(() => this.coursesService.removeCourse(courseId));
+  }
 }

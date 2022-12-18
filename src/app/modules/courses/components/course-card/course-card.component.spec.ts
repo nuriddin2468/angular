@@ -2,6 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 
 import { CourseCardComponent } from './course-card.component';
 import { coursesMock } from '@app/testing/courses.mock';
+import { TestingModule } from '@app/testing/testing.module';
 
 describe('CourseCardComponent', () => {
   let component: CourseCardComponent;
@@ -10,7 +11,8 @@ describe('CourseCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CourseCardComponent ]
+      declarations: [ CourseCardComponent ],
+      imports: [TestingModule]
     })
     .compileComponents();
 

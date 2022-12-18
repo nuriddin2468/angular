@@ -6,6 +6,9 @@ import { By } from '@angular/platform-browser';
 import { MockBreadcrumbsComponent } from '@app/testing/components/mock-breadcrumbs.component';
 import { MockSearchComponent } from '@app/testing/components/mock-search.component';
 import { MockCourseCardComponent } from '@app/testing/components/mock-course-card.component';
+import { TestingModule } from '@app/testing/testing.module';
+import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
+import { MockFilterPipe } from '@app/testing/pipes/mock-filter.pipe';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -19,6 +22,12 @@ describe('CoursesComponent', () => {
         MockBreadcrumbsComponent,
         MockSearchComponent,
         MockCourseCardComponent
+      ],
+      imports: [TestingModule],
+      providers: [
+        {
+          provide: FilterPipe, useClass: MockFilterPipe
+        }
       ]
     })
     .compileComponents();

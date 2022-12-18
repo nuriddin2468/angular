@@ -1,0 +1,36 @@
+<div class="card">
+  <form [formGroup]="form" (submit)="submit()">
+    <h2>Login</h2>
+    <div class="name-status">
+      <div>
+        E-mail:
+      </div>
+      <div class="status">
+        *required
+      </div>
+    </div>
+    <input
+      type="email"
+      placeholder="Enter e-mail"
+      formControlName="email"
+    />
+    <div class="name-status">
+      <div>
+        Password:
+      </div>
+      <div class="status">
+        *required
+      </div>
+    </div>
+    <input
+      type="password"
+      placeholder="Enter password"
+      formControlName="password"
+    />
+
+    <div class="card-footer">
+      <a href="#">Forgot password?</a>
+      <button type="submit">Login</button>
+    </div>
+  </form>
+</div>

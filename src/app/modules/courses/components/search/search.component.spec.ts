@@ -2,6 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 
 import { SearchComponent } from './search.component';
 import { FormsModule } from '@angular/forms';
+import { TestingModule } from '@app/testing/testing.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -10,8 +11,11 @@ describe('SearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [SearchComponent]
+      imports: [
+        FormsModule,
+        TestingModule
+      ],
+      declarations: [SearchComponent],
     })
       .compileComponents();
 

@@ -12,5 +12,16 @@
         padding: $btn-padding;
       }
     }
+    .no-data {
+      display: flex;
+      border: 1px solid;
+      border-radius: 12px;
+      margin-top: $margin-top-default;
+      font-size: 18px;
+      text-transform: uppercase;
+      justify-content: center;
+      align-items: center;
+      height: 60px;
+    }
   }
 }

@@ -1,0 +1,8 @@
+<h1>{{data.title}}</h1>
+<div>
+  <label [innerHTML]="data.question"></label>
+</div>
+<div>
+  <button (click)="dialogRef.close(true)">OK</button>
+  <button (click)="dialogRef.close(false)">Cancel</button>
+</div>

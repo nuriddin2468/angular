@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { MockFooterComponent } from '@app/testing/components/mock-footer.component';
 import { MockHeaderComponent } from '@app/testing/components/mock-header.component';
+import { TestingModule } from '@app/testing/testing.module';
 
 describe('WrapperComponent', () => {
   let component: WrapperComponent;
@@ -12,7 +13,10 @@ describe('WrapperComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule,
+        TestingModule
+      ],
       declarations: [
         WrapperComponent,
         MockFooterComponent,
