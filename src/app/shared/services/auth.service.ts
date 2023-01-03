@@ -1,29 +1,44 @@
 import { Injectable } from '@angular/core';
 import { User } from '@shared/types/user';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { UserMock } from '@app/testing/user.mock';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  _currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private _currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
-  login(): void {
-    console.log('login');
+  login(email: string, password: string): Observable<boolean> {
+    const user = UserMock;
+    if (email !== user.email || password !== user.password)
+      return of(false);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this._currentUser.next(user);
+    return of(true);
   }
 
   logout(): void {
-    console.log('logout');
+    localStorage.removeItem('currentUser');
+    this._currentUser.next(null);
+    this.router.navigate(['/auth']);
   }
 
-  isAuthenticated(): void {
-    console.log('isAuthenticated');
+  isAuthenticated(): Observable<boolean> {
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) this._currentUser.next(JSON.parse(currentUser));
+    return this._currentUser.asObservable().pipe(
+      map(res => !!res)
+    );
   }
 
-  getUserInfo(): void {
-    console.log('getUserInfo');
+  getUserInfo(): Observable<User> {
+    return this._currentUser.asObservable()
   }
 }

@@ -11,6 +11,7 @@ import { OrderByPipe } from './pipes/orderBy/order-by.pipe';
 import { FilterPipe } from './pipes/filter/filter.pipe';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { IsAuthenticatedDirective } from './directives/is-authenticated.directive';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 
 const components = [
@@ -36,7 +37,8 @@ const directives = [
   declarations: [
     ...components,
     ...pipes,
-    ...directives
+    ...directives,
+    ErrorPageComponent
 
   ],
   exports: [

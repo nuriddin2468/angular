@@ -1,6 +1,7 @@
 <div class="card">
   <form [formGroup]="form" (submit)="submit()">
     <h2>Login</h2>
+    <h5 class="error" *ngIf="hasError">Wrong e-mail or password</h5>
     <div class="name-status">
       <div>
         E-mail:

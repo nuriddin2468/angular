@@ -4,6 +4,7 @@ import { CoursesService } from '@modules/courses/services/courses.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { filter, switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -17,7 +18,8 @@ export class CoursesComponent implements OnInit {
 
   constructor(
     private coursesService: CoursesService,
-    private dialogService: Dialog
+    private dialogService: Dialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -44,5 +46,9 @@ export class CoursesComponent implements OnInit {
           }).closed.pipe(filter(data => data))
         )
       ).subscribe(() => this.coursesService.removeCourse(courseId));
+  }
+
+  editCourse(courseId: number) {
+    this.router.navigate(['/courses/', courseId]);
   }
 }

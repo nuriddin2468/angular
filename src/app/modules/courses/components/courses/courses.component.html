@@ -8,7 +8,11 @@
     </div>
     <ng-container *ngIf="(courses$ | async | filter : searchValue) as courses; else: noData">
       <ng-container *ngFor="let course of (courses | orderBy); trackBy: trackByIdentity">
-        <app-course-card (delete)="deleteCourse($event)" [course]="course"></app-course-card>
+        <app-course-card
+          (delete)="deleteCourse($event)"
+          [course]="course"
+          (edit)="editCourse($event)"
+        ></app-course-card>
       </ng-container>
     </ng-container>
 

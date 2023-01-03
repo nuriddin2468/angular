@@ -10,7 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
-import { CourseAddComponent } from './components/course-add/course-add.component';
+import { CourseAddEditComponent } from './components/course-add-edit/course-add-edit.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -18,19 +21,23 @@ import { CourseAddComponent } from './components/course-add/course-add.component
     CoursesComponent,
     CourseCardComponent,
     SearchComponent,
-    CourseAddComponent
+    CourseAddEditComponent
   ],
-    imports: [
-        CommonModule,
-        CoursesRoutingModule,
-        SharedModule,
-        FormsModule,
-        FontAwesomeModule,
-        MatDialogModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    CommonModule,
+    CoursesRoutingModule,
+    SharedModule,
+    FormsModule,
+    FontAwesomeModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
+  ],
   providers: [
-    FilterPipe
+    FilterPipe,
+    MatDatepickerModule
   ]
 })
 export class CoursesModule { }

@@ -1,21 +1,28 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AuthService } from '@shared/services/auth.service';
+import { distinctUntilChanged } from 'rxjs';
 
 @Directive({
   selector: '[appIsAuthenticated]'
 })
 export class IsAuthenticatedDirective implements OnInit{
-  @Input() appIsAuthenticated: boolean;
+
   constructor(
     private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
+    private viewContainer: ViewContainerRef,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    if (this.appIsAuthenticated) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
-      return;
-    }
-    this.viewContainer.clear();
+    this.authService.isAuthenticated().pipe(
+      distinctUntilChanged()
+    ).subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.viewContainer.createEmbeddedView(this.templateRef);
+        return;
+      }
+      this.viewContainer.clear();
+    })
   }
 
 }

@@ -1,6 +1,9 @@
 <div class="card">
-  <form [formGroup]="form">
-    <h2>New course</h2>
+  <form [formGroup]="form" (submit)="save()">
+    <h2 *ngIf="isNew else currentCourse">New course</h2>
+    <ng-template #currentCourse>
+      <h2>{{form.value['title'] | uppercase}}</h2>
+    </ng-template>
     <div class="input-field">
       <div>
         Title:
@@ -46,7 +49,7 @@
     </div>
 
 
-    <div class="fixed-size">
+    <div class="fixed-size date-area">
       <div class="input-field">
         <div>
           Date:
@@ -55,10 +58,9 @@
           *required
         </div>
       </div>
-      <input
-        formControlName="date"
-        type="date"
-      />
+      <input matInput formControlName="creationDate" [matDatepicker]="picker">
+      <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </div>
 
     <div class="fixed-size">
@@ -78,7 +80,7 @@
     </div>
 
     <div class="footer">
-      <button>Cancel</button>
+      <button (click)="cancel()">Cancel</button>
       <button class="success">Save</button>
     </div>
 

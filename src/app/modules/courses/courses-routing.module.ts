@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WrapperComponent } from '@shared/components/wrapper/wrapper.component';
 import { CoursesComponent } from '@modules/courses/components/courses/courses.component';
-import { CourseAddComponent } from '@modules/courses/components/course-add/course-add.component';
+import { CourseAddEditComponent } from '@modules/courses/components/course-add-edit/course-add-edit.component';
 
 const routes: Routes = [
   {
@@ -16,7 +16,11 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        component: CourseAddComponent
+        component: CourseAddEditComponent
+      },
+      {
+        path: ':id',
+        component: CourseAddEditComponent
       }
     ]
   }

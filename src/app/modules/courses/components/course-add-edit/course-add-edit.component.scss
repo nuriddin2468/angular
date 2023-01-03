@@ -6,6 +6,7 @@
 
   .card {
     @include card-props(1000px);
+    margin: 16px 0;
 
     .input-field{
       display: flex;
@@ -21,6 +22,10 @@
       font-size: 14px;
       padding: 6px 4px;
       width: 100%;
+    }
+
+    .date-area input{
+      width: 160px;
     }
 
     .fixed-size {
@@ -40,7 +45,7 @@
       justify-content: flex-end;
 
       button {
-        margin-right: 12px;
+        margin-left: 12px;
         padding: 8px 12px;
       }
 
