@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@shared/types/user';
 import { AuthService } from '@shared/services/auth.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,7 +16,8 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.getUserInfo().subscribe(user => this.user = user);
+    this.authService.getUserInfo()
+      .pipe(untilDestroyed(this)).subscribe(user => this.user = user);
   }
 
   logout(): void {

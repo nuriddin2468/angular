@@ -1,0 +1,12 @@
+@import "src/variables.scss";
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  margin-top: 12px;
+
+  .status {
+    color: $muted;
+  }
+}

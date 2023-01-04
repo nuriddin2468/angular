@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogComponent } from './dialog.component';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 
 describe('DialogComponent', () => {
   let component: DialogComponent;
@@ -8,7 +9,15 @@ describe('DialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogComponent ]
+      declarations: [ DialogComponent ],
+      imports: [],
+      providers: [
+        {
+          provide: DialogRef,
+          useValue: {}
+        },
+        {provide:DIALOG_DATA, useValue:{}}
+      ]
     })
     .compileComponents();
 

@@ -9,6 +9,7 @@ import { MockCourseCardComponent } from '@app/testing/components/mock-course-car
 import { TestingModule } from '@app/testing/testing.module';
 import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
 import { MockFilterPipe } from '@app/testing/pipes/mock-filter.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -23,7 +24,10 @@ describe('CoursesComponent', () => {
         MockSearchComponent,
         MockCourseCardComponent
       ],
-      imports: [TestingModule],
+      imports: [
+        TestingModule,
+        MatDialogModule
+      ],
       providers: [
         {
           provide: FilterPipe, useClass: MockFilterPipe
@@ -34,7 +38,6 @@ describe('CoursesComponent', () => {
 
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
-    component.courses = [...coursesMock];
     el = fixture.nativeElement;
     fixture.detectChanges();
   });
@@ -44,19 +47,14 @@ describe('CoursesComponent', () => {
   });
 
   it('should render breadcrumbs, search, course-card components', function () {
-    const breadcrumbElement = fixture.debugElement.query(
-      By.directive(MockBreadcrumbsComponent)
-    );
     const searchElement = fixture.debugElement.query(
       By.directive(MockSearchComponent)
     );
     const courseCardElement = fixture.debugElement.query(
       By.directive(MockCourseCardComponent)
     );
-    const breadcrumb = breadcrumbElement.componentInstance;
     const search = searchElement.componentInstance;
     const course = courseCardElement.componentInstance;
-    expect(breadcrumb).toBeTruthy();
     expect(search).toBeTruthy();
     expect(course).toBeTruthy();
   });
@@ -66,10 +64,8 @@ describe('CoursesComponent', () => {
     expect(cards.length === 2);
   });
 
-  it('should show breadcrumb and search', function () {
-    const breadcrumb = el.querySelector('app-breadcrumbs');
+  it('should show search', function () {
     const search = el.querySelector('app-search');
-    expect(breadcrumb).toBeTruthy();
     expect(search).toBeTruthy();
   });
 

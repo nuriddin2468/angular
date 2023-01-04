@@ -8,16 +8,6 @@
     @include card-props(1000px);
     margin: 16px 0;
 
-    .input-field{
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 6px;
-      margin-top: 12px;
-      .status {
-        color: $muted;
-      }
-    }
-
     input {
       font-size: 14px;
       padding: 6px 4px;

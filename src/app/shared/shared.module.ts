@@ -12,6 +12,7 @@ import { FilterPipe } from './pipes/filter/filter.pipe';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { IsAuthenticatedDirective } from './directives/is-authenticated.directive';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { FieldHeaderComponent } from './components/field-header/field-header.component';
 
 
 const components = [
@@ -19,7 +20,9 @@ const components = [
   FooterComponent,
   WrapperComponent,
   BreadcrumbsComponent,
-  DialogComponent
+  DialogComponent,
+  ErrorPageComponent,
+  FieldHeaderComponent
 ]
 
 const pipes = [
@@ -37,14 +40,13 @@ const directives = [
   declarations: [
     ...components,
     ...pipes,
-    ...directives,
-    ErrorPageComponent
+    ...directives
 
   ],
   exports: [
     ...components,
     ...pipes,
-    ...directives,
+    ...directives
   ],
   imports: [
     CommonModule,

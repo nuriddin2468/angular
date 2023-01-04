@@ -1,31 +1,20 @@
 <div class="card">
   <form [formGroup]="form" (submit)="save()">
-    <h2 *ngIf="isNew else currentCourse">New course</h2>
-    <ng-template #currentCourse>
-      <h2>{{form.value['title'] | uppercase}}</h2>
-    </ng-template>
-    <div class="input-field">
-      <div>
-        Title:
-      </div>
-      <div class="status">
-        *required
-      </div>
-    </div>
+    <h2>{{isNew ? 'New course' : (form.value['title'] | uppercase )}}</h2>
+    <app-field-header
+      text="title"
+      [isRequired]="true"
+    ></app-field-header>
     <input
       formControlName="title"
       type="text"
       placeholder="Text input"
     />
 
-    <div class="input-field">
-      <div>
-        Description:
-      </div>
-      <div class="status">
-        *required
-      </div>
-    </div>
+    <app-field-header
+      text="Description"
+      [isRequired]="true"
+    ></app-field-header>
     <textarea
       formControlName="description"
       placeholder="Add description"
@@ -33,14 +22,10 @@
 
 
     <div class="fixed-size">
-      <div class="input-field">
-        <div>
-          Duration:
-        </div>
-        <div class="status">
-          *required
-        </div>
-      </div>
+      <app-field-header
+        text="Duration"
+        [isRequired]="true"
+      ></app-field-header>
       <input
         formControlName="duration"
         type="number"
@@ -50,28 +35,20 @@
 
 
     <div class="fixed-size date-area">
-      <div class="input-field">
-        <div>
-          Date:
-        </div>
-        <div class="status">
-          *required
-        </div>
-      </div>
+      <app-field-header
+        text="Date"
+        [isRequired]="true"
+      ></app-field-header>
       <input matInput formControlName="creationDate" [matDatepicker]="picker">
       <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </div>
 
     <div class="fixed-size">
-      <div class="input-field">
-        <div>
-          Authors:
-        </div>
-        <div class="status">
-          *required
-        </div>
-      </div>
+      <app-field-header
+        text="Authors"
+        [isRequired]="true"
+      ></app-field-header>
       <input
         formControlName="authors"
         type="text"

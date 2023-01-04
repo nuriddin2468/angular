@@ -3,7 +3,7 @@ import { Component} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 @Component({
-  selector: 'mock-compoennt',
+  selector: 'mock-component',
   template: `
     <div
       id="creationDateBlackDefault"
@@ -36,7 +36,7 @@ class HostComponent {
   day = 24*60*60*1000;
   creationDateBlackDefault: Date;
   creationDateBlack = new Date(new Date().getTime() -  this.day * 20);
-  creationDateGreen = new Date();
+  creationDateGreen = new Date(new Date().getTime() -  this.day);
   creationDateGreen14Days = new Date(new Date().getTime() -  this.day * 13);
   creationDateBlue = new Date(new Date().getTime() +  this.day);
 }
@@ -47,7 +47,7 @@ describe('CoursePlateStatusDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HostComponent],
+      imports: [],
       declarations: [
         HostComponent,
         CoursePlateStatusDirective
