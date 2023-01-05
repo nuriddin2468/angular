@@ -13,8 +13,8 @@ import { Course } from '@modules/courses/types/course';
 export class CourseAddEditComponent implements OnInit {
 
   form = this.fb.group({
-    title: [''],
-    description: [''],
+    title: [],
+    description: [],
     duration: [],
     creationDate: [],
     authors: []

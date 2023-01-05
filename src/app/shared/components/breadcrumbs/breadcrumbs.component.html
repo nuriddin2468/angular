@@ -1,3 +1,7 @@
 <div class="content">
-  Courses
+  <ul>
+    <li *ngFor="let item of breadcrumbs; last as last">
+      {{item}} <span class="slash">{{last ? '' : '/'}}</span>
+    </li>
+  </ul>
 </div>

@@ -7,20 +7,31 @@ import { CourseAddEditComponent } from '@modules/courses/components/course-add-e
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'prefix',
     component: WrapperComponent,
+    data: {
+      breadcrumb: 'Courses'
+    },
     children: [
       {
         path: '',
-        component: CoursesComponent
+        component: CoursesComponent,
+        data: {
+          breadcrumb: null
+        }
       },
       {
         path: 'add',
-        component: CourseAddEditComponent
+        component: CourseAddEditComponent,
+        data: {
+          breadcrumb: 'New Course'
+        }
       },
       {
         path: ':id',
-        component: CourseAddEditComponent
+        component: CourseAddEditComponent,
+        data: {
+          breadcrumb: ''
+        }
       }
     ]
   }
