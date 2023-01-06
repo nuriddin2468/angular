@@ -30,7 +30,7 @@ const routes: Routes = [
         path: ':id',
         component: CourseAddEditComponent,
         data: {
-          breadcrumb: ''
+          breadcrumb: 'Update Course'
         }
       }
     ]

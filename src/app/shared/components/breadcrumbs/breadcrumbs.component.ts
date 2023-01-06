@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
@@ -20,7 +22,8 @@ export class BreadcrumbsComponent implements OnInit {
   ngOnInit() {
     this.createBreadcrumbs();
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationEnd),
+      untilDestroyed(this)
     ).subscribe(() => {
       this.createBreadcrumbs();
     });
