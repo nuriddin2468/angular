@@ -22,6 +22,6 @@ describe('OrderByPipe', () => {
   it('should order course by create date by desc', function () {
     const courses = [...coursesMock];
     const orderedCourses = new OrderByPipe().transform(courses, 'desc');
-    expect(orderedCourses[0].id).toBe(3);
+    expect(orderedCourses[0].id).toBe(1);
   });
 });

@@ -3,8 +3,8 @@
     <h2>Video Course</h2>
   </div>
 
-  <ul class="right-side" *appIsAuthenticated="true">
-    <li>User Login</li>
-    <li>Log out</li>
+  <ul class="right-side" *appIsAuthenticated>
+    <li>{{user.email}}</li>
+    <li><button (click)="logout()">Log out</button></li>
   </ul>
 </header>

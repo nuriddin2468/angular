@@ -1,17 +1,10 @@
 @import "src/variables.scss";
 
 :host {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+  @include centralize();
 
   .card {
-    padding: 24px;
-    width: 360px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
-    border-radius: 6px;
+    @include card-props(360px);
 
     .name-status {
       display: flex;
@@ -26,6 +19,11 @@
       width: 100%;
       font-size: 14px;
       padding: 6px 4px;
+    }
+
+    .error {
+      color: red;
+      text-align: right;
     }
 
     .card-footer {

@@ -1,0 +1,65 @@
+<div class="card">
+  <form [formGroup]="form" (submit)="save()">
+    <h2>{{isNew ? 'New course' : (form.value['title'] | uppercase )}}</h2>
+    <app-field-header
+      text="title"
+      [isRequired]="true"
+    ></app-field-header>
+    <input
+      formControlName="title"
+      type="text"
+      placeholder="Text input"
+    />
+
+    <app-field-header
+      text="Description"
+      [isRequired]="true"
+    ></app-field-header>
+    <textarea
+      formControlName="description"
+      placeholder="Add description"
+    ></textarea>
+
+
+    <div class="fixed-size">
+      <app-field-header
+        text="Duration"
+        [isRequired]="true"
+      ></app-field-header>
+      <input
+        formControlName="duration"
+        type="number"
+        placeholder="minutes"
+      />
+    </div>
+
+
+    <div class="fixed-size date-area">
+      <app-field-header
+        text="Date"
+        [isRequired]="true"
+      ></app-field-header>
+      <input matInput formControlName="creationDate" [matDatepicker]="picker">
+      <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+
+    <div class="fixed-size">
+      <app-field-header
+        text="Authors"
+        [isRequired]="true"
+      ></app-field-header>
+      <input
+        formControlName="authors"
+        type="text"
+        placeholder="Start typing"
+      />
+    </div>
+
+    <div class="footer">
+      <button (click)="cancel()">Cancel</button>
+      <button class="success">Save</button>
+    </div>
+
+  </form>
+</div>

@@ -6,17 +6,22 @@ import { CoursesComponent } from '@modules/courses/components/courses/courses.co
 import { SharedModule } from '@shared/shared.module';
 import { CourseCardComponent } from './components/course-card/course-card.component';
 import { SearchComponent } from './components/search/search.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CourseAddEditComponent } from './components/course-add-edit/course-add-edit.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
   declarations: [
     CoursesComponent,
     CourseCardComponent,
-    SearchComponent
+    SearchComponent,
+    CourseAddEditComponent
   ],
   imports: [
     CommonModule,
@@ -24,10 +29,15 @@ import { MatDialogModule } from '@angular/material/dialog';
     SharedModule,
     FormsModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
   providers: [
-    FilterPipe
+    FilterPipe,
+    MatDatepickerModule
   ]
 })
 export class CoursesModule { }
