@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { Course } from '@modules/courses/types/course';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { CoursesService } from '@modules/courses/services/courses.service';
-import { filter, Observable, switchMap } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { Dialog } from '@angular/cdk/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -28,12 +28,12 @@ export class CourseCardComponent {
   ) {
   }
 
-  deleteCourse(id: number) {
-    this.coursesService.getCourse(id)
+  deleteCourse(course: Course) {
+    this.showDialog(course.name)
       .pipe(
-        switchMap(course => this.showDialog(course.name)),
+        filter(data => !!data),
         untilDestroyed(this)
-      ).subscribe(() => this.delete.emit(id));
+      ).subscribe(() => this.delete.emit(course.id));
   }
 
   private showDialog(name: string): Observable<unknown> {
@@ -43,8 +43,6 @@ export class CourseCardComponent {
         title: 'Warning!',
         question: `Would you like to delete course: </br><b>${name}</b>`
       }
-    }).closed.pipe(
-      filter(data => !!data)
-    )
+    }).closed
   }
 }

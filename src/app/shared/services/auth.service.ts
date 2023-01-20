@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '@shared/types/user';
-import { BehaviorSubject, catchError, filter, map, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, filter, Observable, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,12 +9,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-  private _isAuthenticated = new BehaviorSubject<boolean>(false);
+  private _isAuthenticated = new BehaviorSubject<boolean>(!!localStorage.getItem('userToken'));
 
   constructor(
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {}
 
   login(login: string, password: string): Observable<{token: string | null}> {
     return this.http.post<{token: string}>('auth/login', {
@@ -35,15 +35,13 @@ export class AuthService {
   }
 
   isAuthenticated(): Observable<boolean> {
-    return this._isAuthenticated.asObservable().pipe(
-      map(() => !!localStorage.getItem('userToken'))
-    );
+    return this._isAuthenticated.asObservable();
   }
 
   getUserInfo(): Observable<User> {
     const token =  localStorage.getItem('userToken');
     return this.isAuthenticated().pipe(
-      filter(res => !!res),
+      filter(Boolean),
       switchMap(() =>
         this.http.post<User>('auth/userinfo', {
           token
