@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { debounceTime, filter, Subject } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +16,6 @@ export class SearchComponent implements OnInit{
 
   ngOnInit(): void {
     this.subject$.pipe(
-      filter(res => res?.length >= 3),
       debounceTime(600)
     ).subscribe(res => this.search.emit(res));
   }

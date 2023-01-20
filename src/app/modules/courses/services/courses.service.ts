@@ -19,6 +19,10 @@ export class CoursesService {
     return this._courses.asObservable();
   }
 
+  clearCourses(): void {
+    this._courses.next([]);
+  }
+
   fetchCourses(
     eachRowCount = 5,
     start = 0,

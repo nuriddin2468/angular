@@ -25,6 +25,7 @@ export class CoursesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.coursesService.clearCourses();
     this.coursesService.getCourses().pipe(untilDestroyed(this)).subscribe(res => this.courses = res);
     this.fetchCourses();
   }
