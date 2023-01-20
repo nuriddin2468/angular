@@ -23,5 +23,16 @@
       align-items: center;
       height: 60px;
     }
+
+    .loaderTab {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+
+      button {
+        width: 300px;
+        height: 40px
+      }
+    }
   }
 }

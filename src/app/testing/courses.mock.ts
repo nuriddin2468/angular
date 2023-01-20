@@ -3,24 +3,26 @@ import { Course } from '@modules/courses/types/course';
 export const coursesMock: Course[] = [
   {
     id: 1,
-    title: 'Video Course 1. Name tag',
-    duration: 123,
-    creationDate: '01/12/2022',
+    name: 'Video Course 1. Name tag',
+    length: 123,
+    date: '01/12/2022',
     description: 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
+    isTopRated: false
   },
   {
     id: 2,
-    title: 'Video Course 2. Name tag',
-    duration: 220,
-    creationDate: '09/12/2022',
-    description: 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum'
+    name: 'Video Course 2. Name tag',
+    length: 220,
+    date: '09/12/2022',
+    description: 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
+    isTopRated: false
   },
   {
     id: 3,
-    title: 'Video Course 3. Name tag',
-    duration: 16,
-    creationDate: '03/09/2022',
+    name: 'Video Course 3. Name tag',
+    length: 16,
+    date: '03/09/2022',
     description: 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
-    topRated: true
+    isTopRated: true
   }
 ]

@@ -1,44 +1,62 @@
 import { Injectable } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { coursesMock } from '@app/testing/courses.mock';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Author } from '@modules/courses/types/author';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
 
-  private _courses = new BehaviorSubject<Course[]>([...coursesMock]);
+  private _courses = new BehaviorSubject<Course[]>([]);
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getCourses(): Observable<Course[]> {
     return this._courses.asObservable();
   }
 
-  createCourse(course: Omit<Course, 'id'>): void {
-    const courses = this._courses.getValue();
-    courses.sort(item => item.id);
-    const highestIndex = Math.max(...courses.map(item => item.id));
-    course['id'] = highestIndex + 1;
-    course['creationDate'] = new Date().toString();
-    this._courses.next([...courses, course as Course]);
+  fetchCourses(
+    eachRowCount = 5,
+    start = 0,
+    textFragment = '',
+    shouldSavePrev = true
+  ): Observable<Course[]> {
+    const params = new HttpParams()
+      .set('start', start)
+      .set('count', eachRowCount)
+      .set('textFragment', textFragment);
+    return this.http.get<Course[]>('courses', { params }).pipe(
+      tap(res => {
+        if (!shouldSavePrev) {
+          this._courses.next(res);
+          return;
+        }
+        this._courses.next([...this._courses.getValue(), ...res]);
+      })
+    );
+  }
+
+  createCourse(course: Course): Observable<unknown> {
+    return this.http.post('courses', course);
   }
 
   getCourse(id: number): Observable<Course> {
-    return this._courses.pipe(map(res => res.find(item => item.id === id)))
+    return this.http.get<Course>(`courses/${id}`);
   }
 
-  updateCourse(course: Course): void {
-    const courses = this._courses.getValue();
-    const index = courses.findIndex(item => item.id === course.id);
-    courses[index] = course;
-    this._courses.next(courses);
+  updateCourse(courseId: number, course: Course): Observable<unknown> {
+    return this.http.put(`courses/${courseId}`, course)
   }
 
-  removeCourse(id: number): void {
-    const courses = this._courses.getValue();
-    const newCourses = courses.filter(item => item.id !== id);
-    this._courses.next(newCourses);
+  removeCourse(id: number): Observable<unknown> {
+    return this.http.delete(`courses/${id}`);
+  }
+
+  getAuthors(): Observable<Author[]> {
+    return this.http.get<Author[]>('authors');
   }
 }
