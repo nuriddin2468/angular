@@ -1,18 +1,18 @@
 <div class="card">
   <form [formGroup]="form" (submit)="save()">
-    <h2>{{isNew ? 'New course' : (form.value['title'] | uppercase )}}</h2>
+    <h2>{{isNew ? 'New course' : (form.value['name'] | uppercase)}}</h2>
     <app-field-header
       text="title"
       [isRequired]="true"
     ></app-field-header>
     <input
-      formControlName="title"
+      formControlName="name"
       type="text"
       placeholder="Text input"
     />
 
     <app-field-header
-      text="Description"
+      text="description"
       [isRequired]="true"
     ></app-field-header>
     <textarea
@@ -23,11 +23,11 @@
 
     <div class="fixed-size">
       <app-field-header
-        text="Duration"
+        text="duration"
         [isRequired]="true"
       ></app-field-header>
       <input
-        formControlName="duration"
+        formControlName="length"
         type="number"
         placeholder="minutes"
       />
@@ -36,24 +36,24 @@
 
     <div class="fixed-size date-area">
       <app-field-header
-        text="Date"
+        text="date"
         [isRequired]="true"
       ></app-field-header>
-      <input matInput formControlName="creationDate" [matDatepicker]="picker">
+      <input matInput formControlName="date" [matDatepicker]="picker">
       <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </div>
 
     <div class="fixed-size">
       <app-field-header
-        text="Authors"
+        text="authors"
         [isRequired]="true"
       ></app-field-header>
-      <input
-        formControlName="authors"
-        type="text"
-        placeholder="Start typing"
-      />
+      <mat-form-field appearance="legacy">
+        <mat-select [formControl]="form.controls['authors']" multiple>
+          <mat-option *ngFor="let author of authorsList" [value]="author">{{author.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="footer">

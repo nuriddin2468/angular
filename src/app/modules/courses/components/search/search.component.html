@@ -1,6 +1,9 @@
-<form (submit)="submit()">
-  <div class="content">
-    <input name="searchText" type="text" [(ngModel)]="searchText">
-    <button type="submit">Search</button>
-  </div>
-</form>
+<div class="content">
+  <input
+    name="searchText"
+    placeholder="Search..."
+    type="text"
+    [(ngModel)]="searchText"
+    (keyup)="submit()"
+  >
+</div>

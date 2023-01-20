@@ -7,7 +7,8 @@ import { Course } from '@modules/courses/types/course';
 export class FilterPipe implements PipeTransform {
 
   transform(courses: Course[], name: string): Course[] {
-    return courses.filter(course => course.title.includes(name));
+    if (!courses || courses.length === 0) return [];
+    return courses.filter(course => course.name.includes(name));
   }
 
 }

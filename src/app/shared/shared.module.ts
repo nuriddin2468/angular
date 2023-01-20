@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { WrapperComponent } from '@shared/components/wrapper/wrapper.component';
 import { HeaderComponent } from '@shared/components/wrapper/header/header.component';
 import { FooterComponent } from '@shared/components/wrapper/footer/footer.component';
@@ -13,6 +13,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { IsAuthenticatedDirective } from './directives/is-authenticated.directive';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { FieldHeaderComponent } from './components/field-header/field-header.component';
+import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 const components = [
@@ -40,17 +42,21 @@ const directives = [
   declarations: [
     ...components,
     ...pipes,
-    ...directives
+    ...directives,
+    LoadingBlockComponent
 
   ],
   exports: [
     ...components,
     ...pipes,
-    ...directives
+    ...directives,
+    LoadingBlockComponent
   ],
   imports: [
     CommonModule,
-    RouterOutlet
+    RouterOutlet,
+    RouterLink,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule { }

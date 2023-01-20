@@ -1,15 +1,15 @@
 <div class="content"
-     [appCoursePlateStatus]="course.creationDate"
-     [ngClass]="course.topRated ? 'top-rated' : null"
+     [appCoursePlateStatus]="course.date"
+     [ngClass]="course.isTopRated ? 'top-rated' : null"
 >
   <div class="time">
-    <div>{{course.duration | duration}}</div>
-    <div>{{course.creationDate | date}}</div>
+    <div>{{course.length | duration}}</div>
+    <div>{{course.date | date}}</div>
   </div>
 
   <h2>
-    {{course.title | uppercase }}
-    <fa-icon *ngIf="course.topRated" [icon]="starIcon"></fa-icon>
+    {{course.name | uppercase }}
+    <fa-icon *ngIf="course.isTopRated" [icon]="starIcon"></fa-icon>
   </h2>
   <div class="description-wrapper">
     <div class="description">
@@ -17,7 +17,7 @@
     </div>
     <div class="action">
       <button (click)="edit.emit(course.id)">Edit</button>
-      <button (click)="delete.emit(course.id)">Delete</button>
+      <button (click)="deleteCourse(course)">Delete</button>
     </div>
   </div>
 </div>

@@ -1,10 +1,10 @@
 <header>
   <div>
-    <h2>Video Course</h2>
+    <span class="title" routerLink="/courses">Video Course</span>
   </div>
 
   <ul class="right-side" *appIsAuthenticated>
-    <li>{{user.email}}</li>
+    <li>{{user?.login}}</li>
     <li><button (click)="logout()">Log out</button></li>
   </ul>
 </header>

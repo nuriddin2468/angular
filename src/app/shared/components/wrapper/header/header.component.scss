@@ -6,6 +6,11 @@ header {
   justify-content: space-between;
   align-items: center;
 
+  .title {
+    font-size: 22px;
+    cursor: pointer;
+  }
+
   .right-side {
     display: flex;
     list-style-type: none;

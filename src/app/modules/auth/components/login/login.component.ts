@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from '@shared/services/auth.service';
 import { Router } from '@angular/router';
@@ -21,14 +21,16 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   submit(): void {
     const {email, password} = this.form.value;
     this.authService.login(email, password).subscribe(res => {
-      if (!res) {
+      if (!res.token) {
         this.hasError = true;
+        this.cdr.markForCheck();
         return;
       }
       this.router.navigate(['/']);
