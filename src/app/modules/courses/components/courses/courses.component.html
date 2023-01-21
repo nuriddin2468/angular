@@ -6,8 +6,9 @@
     <div class="action">
       <button class="btn" [routerLink]="['/courses/add']">Add course</button>
     </div>
-    <ng-container *ngIf="courses.length; else: noData">
-        <ng-container *ngFor="let course of (courses | orderBy); trackBy: trackByIdentity">
+    <ng-container *ngIf="(courses$ | async) as courses">
+      <ng-container *ngIf="courses.length > 0; else: noData">
+        <ng-container *ngFor="let course of courses; trackBy: trackByIdentity">
           <app-course-card
             (delete)="deleteCourse($event)"
             [course]="course"
@@ -15,16 +16,17 @@
           ></app-course-card>
         </ng-container>
 
-      <ng-container *ngIf="courses.length < maxCount">
-        <div class="loaderTab">
-          <button (click)="fetchCourses(courses.length)">Load More</button>
-        </div>
+        <ng-container>
+          <div class="loaderTab">
+            <button (click)="loadMore()">Load More</button>
+          </div>
+        </ng-container>
       </ng-container>
     </ng-container>
 
     <ng-template #noData>
       <div class="no-data">
-          No data. Feel free to add new course
+        No data. Feel free to add new course
       </div>
     </ng-template>
   </div>

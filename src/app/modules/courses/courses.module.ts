@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { SharedCoursesModule } from '@modules/courses/+state/reducers/state';
 
 
 @NgModule({
@@ -24,22 +25,24 @@ import { MatSelectModule } from '@angular/material/select';
     SearchComponent,
     CourseAddEditComponent
   ],
-    imports: [
-        CommonModule,
-        CoursesRoutingModule,
-        SharedModule,
-        FormsModule,
-        FontAwesomeModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatSelectModule
-    ],
+  imports: [
+    CommonModule,
+    CoursesRoutingModule,
+    SharedModule,
+    FormsModule,
+    FontAwesomeModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSelectModule,
+    SharedCoursesModule
+  ],
   providers: [
     FilterPipe,
     MatDatepickerModule
   ]
 })
-export class CoursesModule { }
+export class CoursesModule {
+}

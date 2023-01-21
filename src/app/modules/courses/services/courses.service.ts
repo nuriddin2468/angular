@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Author } from '@modules/courses/types/author';
 
@@ -9,39 +9,21 @@ import { Author } from '@modules/courses/types/author';
 })
 export class CoursesService {
 
-  private _courses = new BehaviorSubject<Course[]>([]);
-
   constructor(
     private http: HttpClient
   ) { }
 
-  getCourses(): Observable<Course[]> {
-    return this._courses.asObservable();
-  }
-
-  clearCourses(): void {
-    this._courses.next([]);
-  }
-
   fetchCourses(
     eachRowCount = 5,
     start = 0,
-    textFragment = '',
-    shouldSavePrev = true
+    textFragment?: string
   ): Observable<Course[]> {
     const params = new HttpParams()
       .set('start', start)
       .set('count', eachRowCount)
-      .set('textFragment', textFragment);
-    return this.http.get<Course[]>('courses', { params }).pipe(
-      tap(res => {
-        if (!shouldSavePrev) {
-          this._courses.next(res);
-          return;
-        }
-        this._courses.next([...this._courses.getValue(), ...res]);
-      })
-    );
+      .set('textFragment', textFragment || '')
+      .set('sort', 'asc');
+    return this.http.get<Course[]>('courses', { params });
   }
 
   createCourse(course: Course): Observable<Course> {

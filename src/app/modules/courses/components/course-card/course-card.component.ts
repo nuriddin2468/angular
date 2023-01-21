@@ -17,8 +17,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 export class CourseCardComponent {
 
   @Input() course: Course;
-  @Output() edit = new EventEmitter<number>();
-  @Output() delete = new EventEmitter<number>();
+  @Output() edit = new EventEmitter<Course>();
+  @Output() delete = new EventEmitter<Course>();
 
   starIcon = faStar;
 
@@ -33,7 +33,7 @@ export class CourseCardComponent {
       .pipe(
         filter(data => !!data),
         untilDestroyed(this)
-      ).subscribe(() => this.delete.emit(course.id));
+      ).subscribe(() => this.delete.emit(course));
   }
 
   private showDialog(name: string): Observable<unknown> {
