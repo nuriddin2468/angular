@@ -21,5 +21,4 @@ export class AuthGuard implements CanActivateChild {
         map(res => res ? true : this.router.createUrlTree(['/auth']))
       )
   }
-
 }

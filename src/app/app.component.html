@@ -1,2 +1,7 @@
 <app-loading-block *ngIf="loading$ | async"></app-loading-block>
-<router-outlet></router-outlet>
+<app-header></app-header>
+<app-breadcrumbs  *appIsAuthenticated></app-breadcrumbs>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<app-footer></app-footer>
