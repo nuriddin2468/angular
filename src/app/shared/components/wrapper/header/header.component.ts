@@ -1,27 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '@shared/types/user';
-import { AuthService } from '@shared/services/auth.service';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectUser } from '@shared/+state/reducers';
+import { AuthActions } from '@shared/+state/actions';
+import { Router } from '@angular/router';
 
-@UntilDestroy()
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  user: User;
-  constructor(
-    private authService: AuthService
-  ) { }
+export class HeaderComponent {
+  user$ = this.store.select(selectUser);
 
-  ngOnInit(): void {
-    this.authService.getUserInfo()
-      .pipe(untilDestroyed(this)).subscribe(user => this.user = user);
+  constructor(
+    private store: Store,
+    private router: Router
+  ) {
   }
 
   logout(): void {
-    this.authService.logout();
+    this.store.dispatch(AuthActions.logout());
+    this.router.navigate(['/auth']);
   }
 
 }

@@ -1,4 +1,4 @@
-import { ActionReducerMap, createFeatureSelector, createSelector, MetaReducer, StoreModule } from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector, createSelector, StoreModule } from '@ngrx/store';
 import * as fromCourses from './courses.reducer';
 import { NgModule } from '@angular/core';
 
@@ -12,11 +12,9 @@ export const reducers: ActionReducerMap<State> = {
   coursesFeature: fromCourses.reducer
 }
 
-export const metaReducers: MetaReducer<State>[] = [];
-
 
 @NgModule({
-  imports: [StoreModule.forFeature(FEATURE_KEY, reducers, { metaReducers })]
+  imports: [StoreModule.forFeature(FEATURE_KEY, reducers)]
 })
 export class SharedCoursesModule {}
 

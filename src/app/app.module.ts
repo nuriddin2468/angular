@@ -13,6 +13,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { CoursesApiEffectsService } from '@modules/courses/+state/effects/courses-api-effects.service';
+import { SharedAuthModule } from '@shared/+state/reducers';
+import { AuthApiEffectsService } from '@shared/+state/effects/auth-api-effects.service';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,10 @@ import { CoursesApiEffectsService } from '@modules/courses/+state/effects/course
     BrowserAnimationsModule,
     HttpClientModule,
     StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([CoursesApiEffectsService]),
+    EffectsModule.forRoot([CoursesApiEffectsService, AuthApiEffectsService]),
     StoreRouterConnectingModule.forRoot(),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    SharedAuthModule
   ],
   providers: [
     {
@@ -38,4 +41,5 @@ import { CoursesApiEffectsService } from '@modules/courses/+state/effects/course
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
