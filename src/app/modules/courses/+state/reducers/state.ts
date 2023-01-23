@@ -5,11 +5,11 @@ import { NgModule } from '@angular/core';
 export const FEATURE_KEY = 'shared-courses';
 
 export interface State {
-  courses: fromCourses.State
+  coursesFeature: fromCourses.State
 }
 
 export const reducers: ActionReducerMap<State> = {
-  courses: fromCourses.reducer
+  coursesFeature: fromCourses.reducer
 }
 
 export const metaReducers: MetaReducer<State>[] = [];
@@ -24,7 +24,7 @@ export const selectSharedCoursesState = createFeatureSelector<State>(FEATURE_KEY
 
 export const selectCoursesState = createSelector(
   selectSharedCoursesState,
-  (state: State) => state.courses
+  (state: State) => state.coursesFeature
 );
 
 export const selectAllCourses = createSelector(
