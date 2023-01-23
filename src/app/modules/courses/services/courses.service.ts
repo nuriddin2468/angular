@@ -26,16 +26,16 @@ export class CoursesService {
     return this.http.get<Course[]>('courses', { params });
   }
 
-  createCourse(course: Course): Observable<Course> {
+  createCourse(course: Omit<Course, 'id'>): Observable<Course> {
     return this.http.post<Course>('courses', course);
   }
 
-  getCourse(id: number): Observable<Course> {
+  getCourse(id: number | string): Observable<Course> {
     return this.http.get<Course>(`courses/${id}`);
   }
 
-  updateCourse(courseId: number, course: Course): Observable<Course> {
-    return this.http.put<Course>(`courses/${courseId}`, course)
+  updateCourse(course: Course): Observable<Course> {
+    return this.http.put<Course>(`courses/${course.id}`, course)
   }
 
   removeCourse(id: number): Observable<unknown> {

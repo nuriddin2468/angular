@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoursesService } from '@modules/courses/services/courses.service';
 import { Course } from '@modules/courses/types/course';
+import { Store } from '@ngrx/store';
+import { CoursesActions } from '@modules/courses/+state/actions';
+import { selectAuthors, selectSelectedCourse } from '@modules/courses/+state/reducers';
+import { filter, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Author } from '@modules/courses/types/author';
-import { Observable } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -17,6 +18,7 @@ import { Observable } from 'rxjs';
 export class CourseAddEditComponent implements OnInit {
 
   form = this.fb.group({
+    id: [],
     name: [],
     description: [],
     length: [],
@@ -24,32 +26,25 @@ export class CourseAddEditComponent implements OnInit {
     authors: []
   });
 
-  isNew = true;
+  authorsList$ = this.store.select(selectAuthors)
 
-  authorsList: Author[] = [];
-
-  private  currentCourseId: number;
+  currentCourseId = this.getId() || null;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private coursesService: CoursesService,
-    private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {
   }
 
   ngOnInit(): void {
-    this.coursesService
-      .getAuthors()
-      .pipe(untilDestroyed(this))
-      .subscribe(res => {
-        this.authorsList = res;
-        if (this.getId() !== undefined) {
-          this.seedForm(Number(this.getId()));
-        }
-        this.cdr.markForCheck();
-      });
+    this.store.dispatch(CoursesActions.enterToAddEditCoursePage({ courseId: this.currentCourseId }));
+    this.store.select(selectSelectedCourse).pipe(
+      filter(Boolean),
+      tap(course => this.seedForm(course)),
+      untilDestroyed(this)
+    ).subscribe()
   }
 
   private getId(): string | undefined {
@@ -57,35 +52,26 @@ export class CourseAddEditComponent implements OnInit {
     return id;
   }
 
-  private seedForm(id: number): void {
-    this.coursesService.getCourse(id).subscribe(res => {
-      this.form.setValue({
-        name: res.name,
-        description: res.description,
-        length: res.length,
-        date: new Date(res.date),
-        authors: this.authorsList.filter(author => res.authors.findIndex(x => x.id === author.id) !== -1)
-      });
-      this.currentCourseId = res.id;
-      this.isNew = false;
-      this.cdr.markForCheck();
+  private seedForm(course: Course): void {
+    this.form.setValue({
+      id: course.id,
+      name: course.name,
+      description: course.description,
+      length: course.length,
+      date: new Date(course.date),
+      authors: course.authors
     });
   }
 
   save(): void {
-    const obs$ = this.isNew ? this.saveNew() : this.saveExist();
-    obs$.subscribe(() => this.router.navigate(['/courses']));
+    const course = this.form.value as Course;
+    this.currentCourseId === null ?
+      this.store.dispatch(CoursesActions.createCourse({ course }))
+      : this.store.dispatch(CoursesActions.updateCourse({ course }));
+    this.navigateToMainPage();
   }
 
-  saveNew(): Observable<unknown> {
-    return this.coursesService.createCourse(this.form.value as Course)
-  }
-
-  saveExist(): Observable<unknown> {
-    return this.coursesService.updateCourse(this.currentCourseId, this.form.value as Course);
-  }
-
-  cancel() {
+  navigateToMainPage() {
     this.router.navigate(['/courses']);
   }
 }

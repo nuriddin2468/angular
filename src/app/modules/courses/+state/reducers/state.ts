@@ -29,5 +29,15 @@ export const selectCoursesState = createSelector(
 
 export const selectAllCourses = createSelector(
   selectCoursesState,
-  fromCourses.selectAll
+  fromCourses.selectAllCourses
+)
+
+export const selectSelectedCourse = createSelector(
+  selectCoursesState,
+  fromCourses.selectSelectedCourse,
+)
+
+export const selectAuthors = createSelector(
+  selectCoursesState,
+  fromCourses.selectAuthors
 )

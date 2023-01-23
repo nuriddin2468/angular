@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Course } from '@modules/courses/types/course';
+import { Author } from '@modules/courses/types/author';
 
 export const coursesLoaded = createAction(
   '[Courses API] Courses loaded success',
@@ -16,11 +17,6 @@ export const coursesSearched = createAction(
   props<{ courses: Course[] }>()
 );
 
-export const courseCreated = createAction(
-  '[Courses API] Course created',
-  props<{ course: Course }>()
-);
-
 export const courseUpdated = createAction(
   '[Courses API] Course updated',
   props<{ course: Course }>()
@@ -30,3 +26,8 @@ export const courseDeleted = createAction(
   '[Courses API] Course updated',
   props<{ course: Course }>()
 );
+
+export const enteredToAddEditCourses = createAction(
+  '[Courses API] Course selected',
+  props<{ course: Course, authors: Author[] }>()
+)

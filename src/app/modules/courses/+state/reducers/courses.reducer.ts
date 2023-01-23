@@ -1,76 +1,73 @@
 import { Course } from '@modules/courses/types/course';
 import { createReducer, on } from '@ngrx/store';
 import { CoursesActions, CoursesApiActions } from '@modules/courses/+state/actions';
+import { Author } from '@modules/courses/types/author';
+import { cloneDeep } from '@shared/utils/utils';
 
 const addMoreCourses = (oldCourses: Course[], newCourses: Course[]) => [...oldCourses, ...newCourses];
-const addNewCourse = (courses: Course[], course: Course) => [...courses, course];
-const updateCourse = (courses: Course[], course: Course) => courses.map(
-  oldCourse => oldCourse.id === course.id ? Object.assign({}, oldCourse, course) : oldCourse
-);
-
 const deleteCourse = (courses: Course[], course: Course) => courses.filter(oldCourse => oldCourse.id !== course.id);
 
 export interface State {
-  collection: Course[];
+  courses: Course[];
+  authors: Author[];
+  selectedCourse: Course | null;
 }
 
 export const initialState: State = {
-  collection: []
+  courses: [],
+  authors: [],
+  selectedCourse: null
 };
 
 export const reducer = createReducer(
   initialState,
-  on(CoursesActions.enter, (state) => {
+  on(CoursesActions.enterToAddEditCoursePage, (state) => {
     return {
-      ...state
-    };
-  }),
-  on(CoursesActions.loadMoreCourses, (state) => {
-    return {
-      ...state
-    };
-  }),
-  on(CoursesActions.searchCourses, (state, action) => {
-    return {
-      ...state
+      ...state,
+      selectedCourse: null
     };
   }),
   on(CoursesApiActions.coursesLoaded, (state, action) => {
     return {
       ...state,
-      collection: action.courses
+      courses: action.courses
     };
   }),
   on(CoursesApiActions.coursesLoadedMore, (state, action) => {
     return {
       ...state,
-      collection: addMoreCourses(state.collection, action.courses)
-    };
-  }),
-  on(CoursesApiActions.courseCreated, (state, action) => {
-    return {
-      ...state,
-      collection: addNewCourse(state.collection, action.course)
-    };
-  }),
-  on(CoursesApiActions.courseUpdated, (state, action) => {
-    return {
-      ...state,
-      collection: updateCourse(state.collection, action.course)
+      courses: addMoreCourses(state.courses, action.courses)
     };
   }),
   on(CoursesApiActions.courseDeleted, (state, action) => {
     return {
       ...state,
-      collection: deleteCourse(state.collection, action.course)
+      courses: deleteCourse(state.courses, action.course)
     };
   }),
   on(CoursesApiActions.coursesSearched, (state, action) => {
     return {
       ...state,
-      collection: action.courses
+      courses: action.courses
+    };
+  }),
+  on(CoursesApiActions.enteredToAddEditCourses, (state, action) => {
+    return {
+      ...state,
+      selectedCourse: action.course,
+      authors: action.authors
     };
   })
 );
 
-export const selectAll = (state: State) => state.collection;
+export const selectAllCourses = (state: State) => state.courses;
+export const selectSelectedCourse = (state: State) => {
+  const selectedCourse = cloneDeep(state.selectedCourse);
+  if (selectedCourse === null) return null;
+  // Authors addressing to the same point
+  selectedCourse.authors = state.authors.filter(
+    author => selectedCourse.authors.findIndex(x => x.id === author.id) !== -1
+  );
+  return selectedCourse;
+};
+export const selectAuthors = (state: State) => state.authors;

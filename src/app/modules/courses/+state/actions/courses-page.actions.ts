@@ -1,17 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import { Course } from '@modules/courses/types/course';
 
-export const enter = createAction('[Courses] Enter');
-
+export const enterToCoursesPage = createAction('[Courses] Enter to courses page');
 export const loadMoreCourses = createAction('[Courses] Load more courses');
 
-export const editCourse = createAction(
+export const updateCourse = createAction(
   '[Courses] Edit course',
   props<{ course: Course }>()
 );
 
 export const deleteCourse = createAction(
-  '[Courses] Delete',
+  '[Courses] Delete course',
   props<{ course: Course }>()
 );
 
@@ -20,7 +19,12 @@ export const searchCourses = createAction(
   props<{ searchText: string }>()
 );
 
-export const selectCourse = createAction(
-  '[Courses] Select course',
-  props<{ course: Course }>()
+export const enterToAddEditCoursePage = createAction(
+  '[Courses] Enter to add-edit-course page',
+  props<{ courseId: string | number | null }>()
 );
+
+export const createCourse = createAction(
+  '[Courses] Create course',
+  props<{course: Omit<Course, 'id'>}>()
+)

@@ -3,7 +3,6 @@ import { Course } from '@modules/courses/types/course';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CoursesActions } from '@modules/courses/+state/actions';
-import { Observable } from 'rxjs';
 import { selectAllCourses } from '@modules/courses/+state/reducers';
 
 @Component({
@@ -12,17 +11,16 @@ import { selectAllCourses } from '@modules/courses/+state/reducers';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  courses$: Observable<Course[]>;
+  courses$ = this.store.select(selectAllCourses);
 
   constructor(
     private router: Router,
     private store: Store
   ) {
-    this.courses$ = this.store.select(selectAllCourses);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(CoursesActions.enter());
+    this.store.dispatch(CoursesActions.enterToCoursesPage());
   }
 
   trackByIdentity(index: number, item: Course): number {

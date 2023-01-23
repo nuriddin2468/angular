@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CoursesService } from '@modules/courses/services/courses.service';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { CoursesActions, CoursesApiActions } from '@modules/courses/+state/actions';
-import { concatMap, exhaustMap, map, mergeMap, switchMap } from 'rxjs';
+import { concatMap, exhaustMap, forkJoin, map, mergeMap, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectAllCourses } from '@modules/courses/+state/reducers';
 
@@ -18,7 +18,7 @@ export class CoursesApiEffectsService {
 
   loadCourses$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CoursesActions.enter),
+      ofType(CoursesActions.enterToCoursesPage),
       exhaustMap(() => {
         return this.coursesService.fetchCourses().pipe(
           map(courses => CoursesApiActions.coursesLoaded({ courses }))
@@ -59,4 +59,35 @@ export class CoursesApiEffectsService {
       })
     );
   });
+
+  enterToAddEditCourse$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CoursesActions.enterToAddEditCoursePage),
+      switchMap(({ courseId }) => {
+        const authors$ = this.coursesService.getAuthors();
+        const course$ = courseId ? this.coursesService.getCourse(courseId) : of(null);
+        const obs$ = forkJoin([authors$, course$]);
+        return obs$.pipe(map(([authors, course]) =>
+          CoursesApiActions.enteredToAddEditCourses({ authors, course })));
+      })
+    );
+  });
+
+  createCourse$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CoursesActions.createCourse),
+      mergeMap(({ course }) => {
+        return this.coursesService.createCourse(course);
+      })
+    );
+  }, { dispatch: false });
+
+  updateCourse$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CoursesActions.updateCourse),
+      mergeMap(({ course }) => {
+        return this.coursesService.updateCourse(course);
+      })
+    );
+  }, { dispatch: false });
 }
