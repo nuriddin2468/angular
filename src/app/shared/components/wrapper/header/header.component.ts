@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectUser } from '@shared/+state/reducers';
-import { AuthActions } from '@shared/+state/actions';
+import { AuthActions, AuthSelectors } from '@shared/+state';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  user$ = this.store.select(selectUser);
+  user$ = this.store.select(AuthSelectors.selectUser);
 
   constructor(
     private store: Store,

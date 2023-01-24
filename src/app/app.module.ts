@@ -13,7 +13,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { CoursesApiEffectsService } from '@modules/courses/+state/effects/courses-api-effects.service';
-import { SharedAuthModule } from '@shared/+state/reducers';
+import { SharedAuthModule } from '@shared/+state/modules/auth.module';
 import { AuthApiEffectsService } from '@shared/+state/effects/auth-api-effects.service';
 
 @NgModule({

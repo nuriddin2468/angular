@@ -1,9 +1,8 @@
 import { Directive, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { distinctUntilChanged, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectToken } from '@shared/+state/reducers';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { AuthActions } from '@shared/+state/actions';
+import { AuthActions, AuthSelectors } from '@shared/+state';
 
 @UntilDestroy()
 @Directive({
@@ -19,7 +18,7 @@ export class IsAuthenticatedDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(selectToken).pipe(
+    this.store.select(AuthSelectors.selectToken).pipe(
       distinctUntilChanged(),
       tap(() => this.store.dispatch(AuthActions.getUserInfo())),
       untilDestroyed(this)
