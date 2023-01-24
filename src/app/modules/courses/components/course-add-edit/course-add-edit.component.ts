@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from '@modules/courses/types/course';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,7 @@ import { CoursesActions } from '@modules/courses/+state/actions';
 import { selectAuthors, selectSelectedCourse } from '@modules/courses/+state/reducers';
 import { filter, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Author } from '@modules/courses/types/author';
 
 @UntilDestroy()
 @Component({
@@ -19,14 +20,15 @@ export class CourseAddEditComponent implements OnInit {
 
   form = this.fb.group({
     id: [],
-    name: [],
-    description: [],
-    length: [],
-    date: [],
-    authors: []
+    name: ['', [Validators.required, Validators.maxLength(50)]],
+    description: ['', [Validators.required, Validators.maxLength(500)]],
+    date: ['', [Validators.required]],
+    length: [0, [Validators.required]],
+    authors: this.fb.control<Author[]>([], [Validators.minLength(1)]),
+    isTopRated: [false]
   });
 
-  authorsList$ = this.store.select(selectAuthors)
+  authorsList$ = this.store.select(selectAuthors);
 
   currentCourseId = this.getId() || null;
 
@@ -44,7 +46,7 @@ export class CourseAddEditComponent implements OnInit {
       filter(Boolean),
       tap(course => this.seedForm(course)),
       untilDestroyed(this)
-    ).subscribe()
+    ).subscribe();
   }
 
   private getId(): string | undefined {
@@ -58,8 +60,9 @@ export class CourseAddEditComponent implements OnInit {
       name: course.name,
       description: course.description,
       length: course.length,
-      date: new Date(course.date),
-      authors: course.authors
+      date: new Date(course.date).toString(),
+      authors: course.authors,
+      isTopRated: false
     });
   }
 
