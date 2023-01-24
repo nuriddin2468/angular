@@ -15,6 +15,10 @@ import { FieldHeaderComponent } from './components/field-header/field-header.com
 import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { DateControlComponent } from './components/form-controls/date-control/date-control.component';
+import { DurationControlComponent } from './components/form-controls/duration-control/duration-control.component';
+import { AutocompleteControlComponent } from './components/form-controls/autocomplete-control/autocomplete-control.component';
+import { FormsModule } from '@angular/forms';
 
 
 const components = [
@@ -42,21 +46,26 @@ const directives = [
     ...components,
     ...pipes,
     ...directives,
-    LoadingBlockComponent
+    LoadingBlockComponent,
+    DateControlComponent,
+    DurationControlComponent,
+    AutocompleteControlComponent
 
   ],
   exports: [
     ...components,
     ...pipes,
     ...directives,
-    LoadingBlockComponent
+    LoadingBlockComponent,
+    DurationControlComponent
   ],
-    imports: [
-        CommonModule,
-        RouterOutlet,
-        RouterLink,
-        MatProgressSpinnerModule,
-        MatButtonModule
-    ]
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    FormsModule
+  ]
 })
 export class SharedModule { }

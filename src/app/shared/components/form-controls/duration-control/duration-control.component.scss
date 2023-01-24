@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  min-width: 280px;
+
+  .duration {
+    color: gray;
+  }
+}
