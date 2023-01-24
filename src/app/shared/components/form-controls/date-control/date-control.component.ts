@@ -43,5 +43,6 @@ export class DateControlComponent implements ControlValueAccessor {
 
   setDate(value: string) {
     this.value = new Date(value);
+    this.onChanged(this.value);
   }
 }

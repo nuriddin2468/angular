@@ -55,9 +55,11 @@ export class AutocompleteControlComponent<T> implements ControlValueAccessor {
     this.value.push(hint);
     this.inputText = '';
     this.hints = [];
+    this.onChanged(this.value);
   }
 
   removeItem(item: T) {
     this.value = this.value.filter(x => x !== item);
+    this.onChanged(this.value);
   }
 }

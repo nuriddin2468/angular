@@ -24,13 +24,19 @@ export class CourseAddEditComponent implements OnInit {
     description: ['', [Validators.required, Validators.maxLength(500)]],
     date: ['', [Validators.required]],
     length: [0, [Validators.required, Validators.min(10)]],
-    authors: this.fb.control<Author[]>([], [Validators.minLength(1)]),
+    authors: this.fb.control<Author[]>([], [Validators.required]),
     isTopRated: [false]
   });
+
+  get controls() {
+    return this.form.controls;
+  }
 
   authorsList$ = this.store.select(selectAuthors);
 
   currentCourseId = this.getId() || null;
+
+  showError = false;
 
   constructor(
     private fb: FormBuilder,
@@ -67,6 +73,9 @@ export class CourseAddEditComponent implements OnInit {
   }
 
   save(): void {
+    this.showError = true;
+    if (this.form.invalid) return;
+    this.showError = false;
     const course = this.form.value as Course;
     this.currentCourseId === null ?
       this.store.dispatch(CoursesActions.createCourse({ course }))
