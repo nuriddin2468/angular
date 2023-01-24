@@ -13,8 +13,17 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class DurationControlComponent implements ControlValueAccessor {
 
-  value: number;
+  set value(value) {
+    this._value = Number(value);
+  };
+
+  get value(): number {
+    return Number(this._value);
+  }
+
   disabled: boolean;
+
+  private _value: number;
 
   private onTouched!: Function;
   private onChanged!: Function;
@@ -32,7 +41,7 @@ export class DurationControlComponent implements ControlValueAccessor {
   }
 
   writeValue(value: number): void {
-    this.value = value;
+    this.value = Number(value);
   }
 
 }

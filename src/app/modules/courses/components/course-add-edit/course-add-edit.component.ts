@@ -23,7 +23,7 @@ export class CourseAddEditComponent implements OnInit {
     name: ['', [Validators.required, Validators.maxLength(50)]],
     description: ['', [Validators.required, Validators.maxLength(500)]],
     date: ['', [Validators.required]],
-    length: [0, [Validators.required]],
+    length: [0, [Validators.required, Validators.min(10)]],
     authors: this.fb.control<Author[]>([], [Validators.minLength(1)]),
     isTopRated: [false]
   });
