@@ -58,7 +58,8 @@ const directives = [
     ...directives,
     LoadingBlockComponent,
     DurationControlComponent,
-    DateControlComponent
+    DateControlComponent,
+    AutocompleteControlComponent
   ],
   imports: [
     CommonModule,

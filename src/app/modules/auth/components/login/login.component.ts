@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -15,8 +15,8 @@ import { AuthActions, AuthSelectors } from '@shared/+state';
 export class LoginComponent {
 
   form = this.fb.group({
-    email: [],
-    password: []
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(4)]]
   });
 
   hasError = this.store.select(AuthSelectors.selectError);

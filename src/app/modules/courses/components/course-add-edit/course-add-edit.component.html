@@ -1,5 +1,5 @@
 <div class="card">
-  <form [formGroup]="form" (submit)="save()">
+  <form [formGroup]="form">
     <h2>{{currentCourseId === null ? 'New course' : (form.value['name'] | uppercase)}}</h2>
     <app-field-header
       text="title"
@@ -43,16 +43,17 @@
         text="authors"
         [isRequired]="true"
       ></app-field-header>
-      <mat-form-field appearance="legacy">
-        <mat-select [formControl]="form.controls['authors']" multiple>
-          <mat-option *ngFor="let author of (authorsList$ | async)" [value]="author">{{author.name}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <app-autocomplete-control
+        style="width: 100%"
+        formControlName="authors"
+        [showName]="'name'"
+        [data]="authorsList$ | async"
+      ></app-autocomplete-control>
     </div>
 
     <div class="footer">
       <button mat-button mat-stroked-button color="warn" (click)="navigateToMainPage()">Cancel</button>
-      <button mat-button mat-raised-button color="primary" type="submit" >Save</button>
+      <button mat-button mat-raised-button color="primary" (click)="save()" type="submit">Save</button>
     </div>
 
   </form>
