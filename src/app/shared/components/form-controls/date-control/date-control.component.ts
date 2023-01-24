@@ -39,7 +39,6 @@ export class DateControlComponent implements ControlValueAccessor {
     }
     const date = Date.parse(value as string);
     if (!isNaN(date)) this.value = new Date(date);
-    console.log(this.value);
   }
 
   setDate(value: string) {
