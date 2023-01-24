@@ -5,6 +5,6 @@
 
   <ul class="right-side" *appIsAuthenticated>
     <li>{{(user$ | async)?.login}}</li>
-    <li><button (click)="logout()">Log out</button></li>
+    <li><button mat-button mat-raised-button  (click)="logout()">Log out</button></li>
   </ul>
 </header>

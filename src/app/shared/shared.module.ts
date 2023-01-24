@@ -14,6 +14,7 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { FieldHeaderComponent } from './components/field-header/field-header.component';
 import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
 
 
 const components = [
@@ -50,11 +51,12 @@ const directives = [
     ...directives,
     LoadingBlockComponent
   ],
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-    MatProgressSpinnerModule
-  ]
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        RouterLink,
+        MatProgressSpinnerModule,
+        MatButtonModule
+    ]
 })
 export class SharedModule { }
