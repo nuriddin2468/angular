@@ -57,7 +57,8 @@ const directives = [
     ...pipes,
     ...directives,
     LoadingBlockComponent,
-    DurationControlComponent
+    DurationControlComponent,
+    DateControlComponent
   ],
   imports: [
     CommonModule,

@@ -35,9 +35,7 @@
         text="date"
         [isRequired]="true"
       ></app-field-header>
-      <input matInput formControlName="date" [matDatepicker]="picker">
-      <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <app-date-control formControlName="date"></app-date-control>
     </div>
 
     <div class="fixed-size">
