@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
+import { cloneDeep } from '@shared/utils/utils';
 
 @Pipe({
   name: 'orderBy'
@@ -7,8 +8,7 @@ import { Course } from '@modules/courses/types/course';
 export class OrderByPipe implements PipeTransform {
 
   transform(courses: Course[], direction: 'asc' | 'desc' = 'asc'): Course[] {
-    const clonedCourses = [...courses]
-    return clonedCourses.sort((prev, next) => {
+    return cloneDeep(courses).sort((prev, next) => {
       const prevTime = new Date(prev.date);
       const nextTime = new Date(next.date);
       if (prevTime < nextTime) return direction === 'asc' ? 1 : -1;
