@@ -63,13 +63,12 @@ export class CoursesApiEffectsService {
   enterToAddEditCourse$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CoursesActions.enterToAddEditCoursePage),
-      switchMap(({ courseId }) => {
-        const authors$ = this.coursesService.getAuthors();
-        const course$ = courseId ? this.coursesService.getCourse(courseId) : of(null);
-        const obs$ = forkJoin([authors$, course$]);
-        return obs$.pipe(map(([authors, course]) =>
-          CoursesApiActions.enteredToAddEditCourses({ authors, course })));
-      })
+      switchMap(({ courseId }) => forkJoin([
+        this.coursesService.getAuthors(),
+        courseId ? this.coursesService.getCourse(courseId) : of(null)
+      ]).pipe(map(([authors, course]) =>
+        CoursesApiActions.enteredToAddEditCourses({ authors, course })
+      ))),
     );
   });
 
