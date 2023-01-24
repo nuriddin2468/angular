@@ -1,28 +1,35 @@
 import { Directive, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthService } from '@shared/services/auth.service';
-import { distinctUntilChanged } from 'rxjs';
+import { distinctUntilChanged, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectToken } from '@shared/+state/reducers';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { AuthActions } from '@shared/+state/actions';
 
+@UntilDestroy()
 @Directive({
   selector: '[appIsAuthenticated]'
 })
-export class IsAuthenticatedDirective implements OnInit{
+export class IsAuthenticatedDirective implements OnInit {
 
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private authService: AuthService
-  ) { }
+    private store: Store
+  ) {
+  }
 
   ngOnInit(): void {
-    this.authService.isAuthenticated().pipe(
-      distinctUntilChanged()
+    this.store.select(selectToken).pipe(
+      distinctUntilChanged(),
+      tap(() => this.store.dispatch(AuthActions.getUserInfo())),
+      untilDestroyed(this)
     ).subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.viewContainer.createEmbeddedView(this.templateRef);
         return;
       }
       this.viewContainer.clear();
-    })
+    });
   }
 
 }

@@ -1,8 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { AuthService } from '@shared/services/auth.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectError, selectToken } from '@shared/+state/reducers';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { AuthActions } from '@shared/+state/actions';
 
+@UntilDestroy()
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,25 +20,21 @@ export class LoginComponent {
     password: []
   });
 
-  hasError: boolean = false;
+  hasError = this.store.select(selectError);
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private router: Router,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private store: Store
+  ) {
+    this.store.select(selectToken)
+      .pipe(untilDestroyed(this))
+      .subscribe(() => this.router.navigate(['/']));
+  }
 
   submit(): void {
-    const {email, password} = this.form.value;
-    this.authService.login(email, password).subscribe(res => {
-      if (!res.token) {
-        this.hasError = true;
-        this.cdr.markForCheck();
-        return;
-      }
-      this.router.navigate(['/']);
-    })
+    const { email, password } = this.form.value;
+    this.store.dispatch(AuthActions.signIn({ username: email, password }));
   }
 
 }

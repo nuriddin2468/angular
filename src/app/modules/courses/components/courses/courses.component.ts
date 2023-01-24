@@ -1,59 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
-import { CoursesService } from '@modules/courses/services/courses.service';
-import { Dialog } from '@angular/cdk/dialog';
 import { Router } from '@angular/router';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Store } from '@ngrx/store';
+import { CoursesActions } from '@modules/courses/+state/actions';
+import { selectAllCourses } from '@modules/courses/+state/reducers';
 
-@UntilDestroy(this)
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-
-  readonly eachRowCount = 5;
-  readonly maxCount = 30;
-  courses: Course[] = [];
-  private searchValue: string;
+  courses$ = this.store.select(selectAllCourses);
 
   constructor(
-    private coursesService: CoursesService,
-    private dialogService: Dialog,
-    private router: Router
-  ) { }
+    private router: Router,
+    private store: Store
+  ) {
+  }
 
   ngOnInit(): void {
-    this.coursesService.clearCourses();
-    this.coursesService.getCourses().pipe(untilDestroyed(this)).subscribe(res => this.courses = res);
-    this.fetchCourses();
+    this.store.dispatch(CoursesActions.enterToCoursesPage());
   }
 
   trackByIdentity(index: number, item: Course): number {
     return item.id;
   }
 
-  search(text: string) {
-    this.searchValue = text;
-    this.fetchCourses(0, false);
+  search(searchText: string) {
+    this.store.dispatch(CoursesActions.searchCourses({ searchText }));
   }
 
-  deleteCourse(courseId: number) {
-    this.coursesService
-      .removeCourse(courseId)
-      .pipe(untilDestroyed(this))
-      .subscribe(() => this.fetchCourses(0, false));
+  deleteCourse(course: Course) {
+    this.store.dispatch(CoursesActions.deleteCourse({ course }));
   }
 
-  editCourse(courseId: number) {
-    this.router.navigate(['/courses/', courseId]);
+  editCourse(course: Course) {
+    this.router.navigate(['/courses/', course.id]);
   }
 
-  fetchCourses(start = 0, shouldSavePrev = true): void {
-    this.coursesService
-      .fetchCourses(this.eachRowCount, start, this.searchValue, shouldSavePrev)
-      .pipe(untilDestroyed(this))
-      .subscribe();
+  loadMore(): void {
+    this.store.dispatch(CoursesActions.loadMoreCourses());
   }
 }

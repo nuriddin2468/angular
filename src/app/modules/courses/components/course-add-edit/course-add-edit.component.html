@@ -1,6 +1,6 @@
 <div class="card">
   <form [formGroup]="form" (submit)="save()">
-    <h2>{{isNew ? 'New course' : (form.value['name'] | uppercase)}}</h2>
+    <h2>{{currentCourseId === null ? 'New course' : (form.value['name'] | uppercase)}}</h2>
     <app-field-header
       text="title"
       [isRequired]="true"
@@ -51,14 +51,14 @@
       ></app-field-header>
       <mat-form-field appearance="legacy">
         <mat-select [formControl]="form.controls['authors']" multiple>
-          <mat-option *ngFor="let author of authorsList" [value]="author">{{author.name}}</mat-option>
+          <mat-option *ngFor="let author of (authorsList$ | async)" [value]="author">{{author.name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
     <div class="footer">
-      <button (click)="cancel()">Cancel</button>
-      <button class="success">Save</button>
+      <button (click)="navigateToMainPage()">Cancel</button>
+      <button type="submit" class="success">Save</button>
     </div>
 
   </form>

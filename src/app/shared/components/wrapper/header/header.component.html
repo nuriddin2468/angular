@@ -4,7 +4,7 @@
   </div>
 
   <ul class="right-side" *appIsAuthenticated>
-    <li>{{user?.login}}</li>
+    <li>{{(user$ | async)?.login}}</li>
     <li><button (click)="logout()">Log out</button></li>
   </ul>
 </header>
