@@ -1,17 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-field-header',
   templateUrl: './field-header.component.html',
   styleUrls: ['./field-header.component.scss']
 })
-export class FieldHeaderComponent implements OnInit {
+export class FieldHeaderComponent {
   @Input() text: string;
   @Input() isRequired: boolean;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

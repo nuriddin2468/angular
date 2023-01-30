@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectError, selectToken } from '@shared/+state/reducers';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { AuthActions } from '@shared/+state/actions';
+import { AuthActions, AuthSelectors } from '@shared/+state';
 
 @UntilDestroy()
 @Component({
@@ -16,18 +15,18 @@ import { AuthActions } from '@shared/+state/actions';
 export class LoginComponent {
 
   form = this.fb.group({
-    email: [],
-    password: []
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(4)]]
   });
 
-  hasError = this.store.select(selectError);
+  hasError = this.store.select(AuthSelectors.selectError);
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private store: Store
   ) {
-    this.store.select(selectToken)
+    this.store.select(AuthSelectors.selectToken)
       .pipe(untilDestroyed(this))
       .subscribe(() => this.router.navigate(['/']));
   }

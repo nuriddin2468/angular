@@ -1,0 +1,23 @@
+<label for="control" class="control">
+  <input
+    type="text"
+    id="control"
+    placeholder="Write here..."
+    [ngModel]="inputText"
+    (ngModelChange)="generateHints($event)"
+    [disabled]="disabled"
+  >
+  <ul class="hints">
+    <li *ngFor="let hint of hints" (click)="chooseItem(hint)">{{hint[showName]}}</li>
+  </ul>
+  <div class="chips">
+    <div *ngFor="let item of value" class="chip">
+      {{item[showName]}}
+      <button
+        class="close"
+        (click)="removeItem(item)"
+        [disabled]="disabled"
+      >X</button>
+    </div>
+  </div>
+</label>

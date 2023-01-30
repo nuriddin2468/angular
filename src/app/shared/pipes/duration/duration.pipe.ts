@@ -6,7 +6,7 @@ import { padZero } from '@shared/utils/utils';
 })
 export class DurationPipe implements PipeTransform {
 
-  transform(value: number): unknown {
+  transform(value: number): string {
     const date = new Date(0);
     date.setMinutes(0);
     date.setHours(0);

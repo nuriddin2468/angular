@@ -4,6 +4,7 @@ header {
   color: white;
   display: flex;
   justify-content: space-between;
+  justify-items: center;
   align-items: center;
 
   .title {
@@ -14,6 +15,7 @@ header {
   .right-side {
     display: flex;
     list-style-type: none;
+    align-items: center;
     li {
       margin-right: 20px;
     }
