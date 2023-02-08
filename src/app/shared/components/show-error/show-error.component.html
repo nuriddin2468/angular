@@ -1,0 +1,23 @@
+<ng-container *ngIf="showError && control">
+  <div
+    *ngIf="!!control.hasError('min')"
+    class="error"
+  >
+    <b>{{name | titlecase}}</b> minimum duration should be not less than {{control.errors['min'].min}}
+  </div>
+
+  <div
+    *ngIf="!!control.hasError('required')"
+    class="error"
+  >
+    <b>{{name | titlecase}}</b> is required!
+  </div>
+
+  <div
+    *ngIf="!!control.hasError('maxLength')"
+    class="error"
+  >
+    Max length of <b>{{name | titlecase}}</b> should not exceed {{control.errors['maxLength'].maxLength}} characters
+  </div>
+
+</ng-container>

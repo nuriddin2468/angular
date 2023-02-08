@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CoursesService } from '@modules/courses/services/courses.service';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { CoursesActions, CoursesApiActions } from '@modules/courses/+state/actions';
+import { CoursesActions, CoursesApiActions, CoursesSelectors } from '@modules/courses/+state';
 import { concatMap, exhaustMap, forkJoin, map, mergeMap, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectAllCourses } from '@modules/courses/+state/reducers';
 
 @Injectable()
 export class CoursesApiEffectsService {
@@ -30,7 +29,7 @@ export class CoursesApiEffectsService {
   loadMoreCourses$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CoursesActions.loadMoreCourses),
-      concatLatestFrom(() => this.store.select(selectAllCourses)),
+      concatLatestFrom(() => this.store.select(CoursesSelectors.selectAllCourses)),
       concatMap(([action, courses]) => {
         return this.coursesService.fetchCourses(5, courses.length).pipe(
           map(courses => CoursesApiActions.coursesLoadedMore({ courses }))

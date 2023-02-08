@@ -1,22 +1,6 @@
-import { ActionReducerMap, createFeatureSelector, createSelector, StoreModule } from '@ngrx/store';
-import * as fromCourses from './courses.reducer';
-import { NgModule } from '@angular/core';
-
-export const FEATURE_KEY = 'shared-courses';
-
-export interface State {
-  coursesFeature: fromCourses.State
-}
-
-export const reducers: ActionReducerMap<State> = {
-  coursesFeature: fromCourses.reducer
-}
-
-
-@NgModule({
-  imports: [StoreModule.forFeature(FEATURE_KEY, reducers)]
-})
-export class SharedCoursesModule {}
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as fromCourses from '@modules/courses/+state/reducers/courses.reducer';
+import { FEATURE_KEY, State } from '@modules/courses/+state/modules/shared-courses.module';
 
 export const selectSharedCoursesState = createFeatureSelector<State>(FEATURE_KEY);
 

@@ -1,5 +1,5 @@
 <div class="card">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="save()">
     <h2>{{currentCourseId === null ? 'New course' : (form.value['name'] | uppercase)}}</h2>
     <app-field-header
       text="title"
@@ -10,11 +10,10 @@
       type="text"
       placeholder="Text input"
     />
-    <span *ngIf="!!controls['name'].hasError('required')" class="error">Name is required!</span>
-    <span
-      *ngIf="!!controls['name'].hasError('maxlength')"
-      class="error">Max length of name should not exceed 50 characters</span>
-
+    <app-show-error
+      [control]="controls['name']"
+      name="name"
+    ></app-show-error>
     <app-field-header
       text="description"
       [isRequired]="true"
@@ -23,11 +22,10 @@
       formControlName="description"
       placeholder="Add description"
     ></textarea>
-    <span *ngIf="!!controls['description'].hasError('required')" class="error">Description is required!</span>
-    <span
-      *ngIf="!!controls['description'].hasError('maxlength')"
-      class="error">Max length of description should not exceed 500 characters</span>
-
+    <app-show-error
+      [control]="controls['description']"
+      name="description"
+    ></app-show-error>
 
     <div class="fixed-size">
       <app-field-header
@@ -35,7 +33,10 @@
         [isRequired]="true"
       ></app-field-header>
       <app-duration-control formControlName="length"></app-duration-control>
-      <span *ngIf="!!controls['length'].hasError('min')" class="error">Course minimum duration should be not less than 10 minutes!</span>
+      <app-show-error
+        [control]="controls['duration']"
+        name="duration"
+      ></app-show-error>
     </div>
 
 
@@ -45,7 +46,10 @@
         [isRequired]="true"
       ></app-field-header>
       <app-date-control formControlName="date"></app-date-control>
-      <span *ngIf="!!controls['date'].hasError('required')" class="error">Date is required!</span>
+      <app-show-error
+        [control]="controls['date']"
+        name="date"
+      ></app-show-error>
     </div>
 
     <div class="fixed-size">
@@ -59,12 +63,15 @@
         [showName]="'name'"
         [data]="authorsList$ | async"
       ></app-autocomplete-control>
-      <span *ngIf="!!controls['authors'].hasError('required')" class="error">At least 1 author should be selected</span>
+      <app-show-error
+        [control]="controls['authors']"
+        name="author"
+      ></app-show-error>
     </div>
 
     <div class="footer">
       <button mat-button mat-stroked-button color="warn" (click)="navigateToMainPage()">Cancel</button>
-      <button mat-button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()" type="submit">
+      <button mat-button mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
         Save
       </button>
     </div>

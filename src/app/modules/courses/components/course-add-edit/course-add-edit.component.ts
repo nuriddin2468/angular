@@ -3,8 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from '@modules/courses/types/course';
 import { Store } from '@ngrx/store';
-import { CoursesActions } from '@modules/courses/+state/actions';
-import { selectAuthors, selectSelectedCourse } from '@modules/courses/+state/reducers';
+import { CoursesActions, CoursesSelectors } from '@modules/courses/+state';
 import { filter, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Author } from '@modules/courses/types/author';
@@ -32,7 +31,7 @@ export class CourseAddEditComponent implements OnInit {
     return this.form.controls;
   }
 
-  authorsList$ = this.store.select(selectAuthors);
+  authorsList$ = this.store.select(CoursesSelectors.selectAuthors);
 
   currentCourseId = this.getId() || null;
 
@@ -48,7 +47,7 @@ export class CourseAddEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(CoursesActions.enterToAddEditCoursePage({ courseId: this.currentCourseId }));
-    this.store.select(selectSelectedCourse).pipe(
+    this.store.select(CoursesSelectors.selectSelectedCourse).pipe(
       filter(Boolean),
       tap(course => this.seedForm(course)),
       untilDestroyed(this)
@@ -73,7 +72,7 @@ export class CourseAddEditComponent implements OnInit {
   }
 
   save(): void {
-    this.showError = true;
+    this.showError = this.form.invalid;
     if (this.form.invalid) return;
     this.showError = false;
     const course = this.form.value as Course;

@@ -15,8 +15,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { SharedCoursesModule } from '@modules/courses/+state/reducers/state';
 import { MatButtonModule } from '@angular/material/button';
+import { SharedCoursesModule } from '@modules/courses/+state/modules/shared-courses.module';
 
 
 @NgModule({

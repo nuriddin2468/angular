@@ -1,6 +1,6 @@
 import { Course } from '@modules/courses/types/course';
 import { createReducer, on } from '@ngrx/store';
-import { CoursesActions, CoursesApiActions } from '@modules/courses/+state/actions';
+import { CoursesActions, CoursesApiActions } from '@modules/courses/+state';
 import { Author } from '@modules/courses/types/author';
 import { cloneDeep } from '@shared/utils/utils';
 
