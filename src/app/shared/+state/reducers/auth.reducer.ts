@@ -10,7 +10,7 @@ export interface State {
 
 const initialState: State = {
   user: null,
-  token: localStorage.getItem('userToken'),
+  token: null,
   error: false
 };
 
@@ -18,15 +18,19 @@ const initialState: State = {
 export const reducer = createReducer(
   initialState,
   on(AuthActions.logout, (state) => {
-    localStorage.removeItem('userToken');
     return {
       ...state,
       user: null,
       token: null
     };
   }),
+  on(AuthActions.setInitialTokenFromStorage, (state, action) => {
+    return {
+      ...state,
+      token: action.token
+    };
+  }),
   on(AuthApiActions.loginSuccess, (state, action) => {
-    localStorage.setItem('userToken', action.token);
     return {
       ...state,
       token: action.token,

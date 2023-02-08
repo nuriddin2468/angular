@@ -5,11 +5,6 @@ import { AuthGuard } from '@shared/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'courses'
-  },
-  {
     path: 'courses',
     loadChildren: () => import('./modules/courses/courses.module').then(m => m.CoursesModule),
     canActivateChild: [AuthGuard]
@@ -19,6 +14,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'courses'
+  },
+  {
     path: '**',
     pathMatch: 'full',
     component: ErrorPageComponent
@@ -26,7 +26,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabledBlocking'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -6,17 +6,24 @@ import { catchError, concatMap, exhaustMap, forkJoin, map, mergeMap, of, switchM
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class CoursesApiEffectsService {
+
+  private errorMessage = '';
 
   constructor(
     private coursesService: CoursesService,
     private actions$: Actions,
     private store: Store,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private translateService: TranslateService
   ) {
+    this.translateService.get('PAGES.COURSES_ADD_EDIT.ERROR').subscribe(res => {
+      this.errorMessage = res;
+    })
   }
 
   loadCourses$ = createEffect(() => {
@@ -83,7 +90,7 @@ export class CoursesApiEffectsService {
       }),
       tap(() => this.router.navigate(['/courses'])),
       catchError(err => {
-        this.snackBar.open('Something went wrong, please try again', 'dismiss', {
+        this.snackBar.open(this.errorMessage, 'dismiss', {
           duration: 2000
         });
         return throwError(err);
@@ -99,7 +106,7 @@ export class CoursesApiEffectsService {
       }),
       tap(() => this.router.navigate(['/courses'])),
       catchError(err => {
-        this.snackBar.open('Something went wrong, please try again', 'dismiss', {
+        this.snackBar.open(this.errorMessage, 'dismiss', {
           duration: 2000
         });
         return throwError(err);

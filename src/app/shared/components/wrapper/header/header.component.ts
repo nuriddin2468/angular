@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthActions, AuthSelectors } from '@shared/+state';
 import { Router } from '@angular/router';
+import { LOCAL_STORAGE } from '@ng-web-apis/common';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +14,13 @@ export class HeaderComponent {
 
   constructor(
     private store: Store,
-    private router: Router
+    private router: Router,
+    @Inject(LOCAL_STORAGE) private storage: Storage
   ) {
   }
 
   logout(): void {
+    this.storage.removeItem('userToken');
     this.store.dispatch(AuthActions.logout());
     this.router.navigate(['/auth']);
   }

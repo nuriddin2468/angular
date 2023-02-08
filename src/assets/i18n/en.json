@@ -20,7 +20,8 @@
     "COURSES_ADD_EDIT": {
       "NEW_COURSE": "New Course",
       "SAVE": "Save",
-      "CANCEL": "Cancel"
+      "CANCEL": "Cancel",
+      "ERROR": "Something went wrong, please try again"
     }
   },
   "SHARED": {
