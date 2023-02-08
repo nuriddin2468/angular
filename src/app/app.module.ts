@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 import { CoursesApiEffectsService } from '@modules/courses/+state/effects/courses-api-effects.service';
 import { SharedAuthModule } from '@shared/+state/modules/auth.module';
 import { AuthApiEffectsService } from '@shared/+state/effects/auth-api-effects.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthApiEffectsService } from '@shared/+state/effects/auth-api-effects.s
     EffectsModule.forRoot([CoursesApiEffectsService, AuthApiEffectsService]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    MatSnackBarModule,
     SharedAuthModule
   ],
   providers: [

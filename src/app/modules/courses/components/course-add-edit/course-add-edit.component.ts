@@ -79,7 +79,6 @@ export class CourseAddEditComponent implements OnInit {
     this.currentCourseId === null ?
       this.store.dispatch(CoursesActions.createCourse({ course }))
       : this.store.dispatch(CoursesActions.updateCourse({ course }));
-    this.navigateToMainPage();
   }
 
   navigateToMainPage() {
