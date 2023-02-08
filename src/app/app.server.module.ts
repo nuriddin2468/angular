@@ -8,7 +8,7 @@ import { UNIVERSAL_LOCAL_STORAGE } from '@ng-web-apis/universal';
 @NgModule({
   imports: [
     AppModule,
-    ServerModule,
+    ServerModule
   ],
   providers: [UNIVERSAL_LOCAL_STORAGE],
   bootstrap: [AppComponent],

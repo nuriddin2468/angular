@@ -1,19 +1,26 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Author } from '@modules/courses/types/author';
 import { ENDPOINT } from '@app/app.module';
+import { makeStateKey, TransferState } from '@angular/platform-browser';
+import { isPlatformServer } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
 
+  private isServer: boolean;
+
   constructor(
     private http: HttpClient,
-    @Inject(ENDPOINT) private url: String
+    @Inject(ENDPOINT) private url: String,
+    private tState: TransferState,
+    @Inject(PLATFORM_ID) platformId: Object,
   ) {
+    this.isServer = isPlatformServer(platformId);
   }
 
   fetchCourses(
@@ -34,7 +41,13 @@ export class CoursesService {
   }
 
   getCourse(id: number | string): Observable<Course> {
-    return this.http.get<Course>(this.url +`courses/${id}`);
+    const key = makeStateKey<Course>(`course${id}`);
+    if (this.tState.hasKey(key)) return of(this.tState.get(key, {} as unknown as Course));
+    return this.http.get<Course>(this.url +`courses/${id}`).pipe(
+      tap(val => {
+        if (this.isServer) this.tState.set(key, val);
+      })
+    );
   }
 
   updateCourse(course: Course): Observable<Course> {
