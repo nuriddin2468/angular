@@ -12,3 +12,8 @@ export const logout = createAction(
 export const getUserInfo = createAction(
   '[Auth] get user info'
 );
+
+export const setInitialTokenFromStorage = createAction(
+  '[Auth] set initial token from storage',
+  props<{token: string}>()
+)

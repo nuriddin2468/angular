@@ -6,7 +6,6 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { delay, finalize, Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { LoadingService } from '@shared/services/loading.service';
 
 @Injectable()
@@ -23,8 +22,7 @@ export class LocalBackendInterceptor implements HttpInterceptor {
       this.loadingService.setLoadingState(true);
     }
     this.count++;
-    const req = request.clone({ url: environment.backendUrl + request.url });
-    return next.handle(req).pipe(
+    return next.handle(request).pipe(
       delay(300),
       finalize(() => {
         this.count--;

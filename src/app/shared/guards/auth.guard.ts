@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthSelectors } from '@shared/+state';
+import { AuthActions, AuthSelectors } from '@shared/+state';
+import { LOCAL_STORAGE } from '@ng-web-apis/common';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,11 @@ export class AuthGuard implements CanActivateChild {
 
   constructor(
     private store: Store,
-    private router: Router
+    private router: Router,
+    @Inject(LOCAL_STORAGE) private storage: Storage
   ) {
+    const token = this.storage.getItem('userToken') || '';
+    this.store.dispatch(AuthActions.setInitialTokenFromStorage({token}));
   }
 
   canActivateChild(
