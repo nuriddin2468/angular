@@ -20,6 +20,7 @@ import { DurationControlComponent } from './components/form-controls/duration-co
 import { AutocompleteControlComponent } from './components/form-controls/autocomplete-control/autocomplete-control.component';
 import { FormsModule } from '@angular/forms';
 import { ShowErrorComponent } from './components/show-error/show-error.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 const components = [
@@ -70,7 +71,8 @@ const directives = [
     RouterLink,
     MatProgressSpinnerModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ]
 })
 export class SharedModule { }

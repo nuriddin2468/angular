@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedCoursesModule } from '@modules/courses/+state/modules/shared-courses.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -26,21 +27,22 @@ import { SharedCoursesModule } from '@modules/courses/+state/modules/shared-cour
     SearchComponent,
     CourseAddEditComponent
   ],
-    imports: [
-        CommonModule,
-        CoursesRoutingModule,
-        SharedModule,
-        FormsModule,
-        FontAwesomeModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatSelectModule,
-        SharedCoursesModule,
-        MatButtonModule
-    ],
+  imports: [
+    CommonModule,
+    CoursesRoutingModule,
+    SharedModule,
+    FormsModule,
+    FontAwesomeModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSelectModule,
+    SharedCoursesModule,
+    MatButtonModule,
+    TranslateModule
+  ],
   providers: [
     FilterPipe,
     MatDatepickerModule

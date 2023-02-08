@@ -18,6 +18,7 @@ export class LocalBackendInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if(request.url.includes('/assets/i18n')) return next.handle(request);
     if (this.count === 0) {
       this.loadingService.setLoadingState(true);
     }

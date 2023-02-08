@@ -1,0 +1,45 @@
+{
+  "PAGES": {
+    "AUTH": {
+      "LOGIN": "Login",
+      "AUTH_ERROR": "Wrong e-mail or password",
+      "EMAIL": "E-mail",
+      "EMAIL_PLACEHOLDER": "Enter e-mail",
+      "PASSWORD": "Password",
+      "PASSWORD_PLACEHOLDER": "Enter password",
+      "FORGOT_PASSWORD": "Forgot password?"
+    },
+    "COURSES": {
+      "ADD_COURSE": "Add Course",
+      "LOAD_MORE": "Load More",
+      "NO_DATA": "No data. Feel free to add new course",
+      "EDIT_COURSE": "Edit",
+      "DELETE_COURSE": "Delete",
+      "SEARCH_PLACEHOLDER": "Search..."
+    },
+    "COURSES_ADD_EDIT": {
+      "NEW_COURSE": "New Course",
+      "SAVE": "Save",
+      "CANCEL": "Cancel"
+    }
+  },
+  "SHARED": {
+    "DIALOG": {
+      "OK": "OK",
+      "CANCEL": "Cancel"
+    },
+    "FIELD_HEADER": {
+      "REQUIRED": "*required"
+    },
+    "SHOW_ERROR": {
+      "MIN": "<b>{{name}}</b> minimum duration should be not less than {{length}}",
+      "REQUIRED": "<b>{{name}}</b> is required!",
+      "MAX_LENGTH": " Max length of <b>{{name}}</b> should not exceed {{length}} characters"
+    },
+    "WRAPPER": {
+      "FOOTER": "Copyright Video courses. All rights reserved",
+      "TITLE": "Video Course",
+      "LOGOUT": "Log out"
+    }
+  }
+}

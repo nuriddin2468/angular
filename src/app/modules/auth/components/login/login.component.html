@@ -1,10 +1,10 @@
 <div class="card">
   <form [formGroup]="form" (submit)="submit()">
-    <h2>Login</h2>
-    <h5 class="error" *ngIf="hasError | async">Wrong e-mail or password</h5>
+    <h2>{{"PAGES.AUTH.LOGIN" | translate}}</h2>
+    <h5 class="error" *ngIf="hasError | async">{{"PAGES.AUTH.AUTH_ERROR" | translate}}</h5>
     <div class="name-status">
       <div>
-        E-mail:
+        {{"PAGES.AUTH.EMAIL" | translate}}:
       </div>
       <div class="status">
         *required
@@ -12,12 +12,12 @@
     </div>
     <input
       type="email"
-      placeholder="Enter e-mail"
+      [placeholder]="'PAGES.AUTH.EMAIL_PLACEHOLDER' | translate"
       formControlName="email"
     />
     <div class="name-status">
       <div>
-        Password:
+        {{"PAGES.AUTH.PASSWORD" | translate}}:
       </div>
       <div class="status">
         *required
@@ -25,13 +25,13 @@
     </div>
     <input
       type="password"
-      placeholder="Enter password"
+      [placeholder]="'PAGES.AUTH.PASSWORD_PLACEHOLDER'| translate"
       formControlName="password"
     />
 
     <div class="card-footer">
-      <a href="#">Forgot password?</a>
-      <button type="submit">Login</button>
+      <a href="#">{{"PAGES.AUTH.FORGOT_PASSWORD" | translate}}</a>
+      <button type="submit">{{"PAGES.AUTH.LOGIN" | translate}}</button>
     </div>
   </form>
 </div>

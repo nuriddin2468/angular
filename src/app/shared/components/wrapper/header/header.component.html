@@ -1,10 +1,10 @@
 <header>
   <div>
-    <span class="title" routerLink="/courses">Video Course</span>
+    <span class="title" routerLink="/courses">{{"SHARED.WRAPPER.TITLE" | translate}}</span>
   </div>
 
   <ul class="right-side" *appIsAuthenticated>
     <li>{{(user$ | async)?.login}}</li>
-    <li><a mat-button mat-raised-button  (click)="logout()">Log out</a></li>
+    <li><a mat-button mat-raised-button  (click)="logout()">{{"SHARED.WRAPPER.LOGOUT" | translate}}</a></li>
   </ul>
 </header>

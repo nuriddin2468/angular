@@ -70,9 +70,11 @@
     </div>
 
     <div class="footer">
-      <button mat-button mat-stroked-button color="warn" (click)="navigateToMainPage()">Cancel</button>
+      <button mat-button mat-stroked-button color="warn" (click)="navigateToMainPage()">
+        {{'PAGES.COURSES_ADD_EDIT.CANCEL' | translate}}
+      </button>
       <button mat-button mat-raised-button color="primary" [disabled]="form.invalid" type="submit">
-        Save
+        {{'PAGES.COURSES_ADD_EDIT.SAVE' | translate}}
       </button>
     </div>
 

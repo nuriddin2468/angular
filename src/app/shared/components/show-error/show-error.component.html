@@ -3,21 +3,30 @@
     *ngIf="!!control.hasError('min')"
     class="error"
   >
-    <b>{{name | titlecase}}</b> minimum duration should be not less than {{control.errors['min'].min}}
+    {{'SHARED.SHOW_ERROR.MIN' | translate : {
+    name: name,
+    length: control.errors['min'].min
+  }
+    }}
   </div>
 
   <div
     *ngIf="!!control.hasError('required')"
     class="error"
+    [innerHTML]="'SHARED.SHOW_ERROR.REQUIRED' | translate : {
+    name: name | titlecase
+  }"
   >
-    <b>{{name | titlecase}}</b> is required!
   </div>
 
   <div
     *ngIf="!!control.hasError('maxLength')"
     class="error"
+    [innerHTML]="'SHARED.SHOW_ERROR.MAX_LENGTH' | translate : {
+    name: name | titlecase,
+    length: control.errors['maxLength'].maxLength
+    }"
   >
-    Max length of <b>{{name | titlecase}}</b> should not exceed {{control.errors['maxLength'].maxLength}} characters
   </div>
 
 </ng-container>

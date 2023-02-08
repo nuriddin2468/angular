@@ -16,8 +16,8 @@
       {{course.description}}
     </div>
     <div class="action">
-      <button (click)="edit.emit(course)">Edit</button>
-      <button (click)="deleteCourse(course)">Delete</button>
+      <button (click)="edit.emit(course)">{{"PAGES.COURSES.EDIT_COURSE" | translate}}</button>
+      <button (click)="deleteCourse(course)">{{"PAGES.COURSES.DELETE_COURSE" | translate}}</button>
     </div>
   </div>
 </div>

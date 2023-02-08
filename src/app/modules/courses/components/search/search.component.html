@@ -1,7 +1,7 @@
 <div class="content">
   <input
     name="searchText"
-    placeholder="Search..."
+    [placeholder]="'PAGES.COURSES.SEARCH_PLACEHOLDER' | translate"
     type="text"
     [(ngModel)]="searchText"
     (keyup)="submit()"

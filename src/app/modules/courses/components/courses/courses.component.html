@@ -4,7 +4,7 @@
 
   <div class="add-course-wrapper">
     <div class="action">
-      <button class="btn" [routerLink]="['/courses/add']">Add course</button>
+      <button class="btn" [routerLink]="['/courses/add']">{{"PAGES.COURSES.ADD_COURSE" | translate}}</button>
     </div>
     <ng-container *ngIf="(courses$ | async) as courses">
       <ng-container *ngIf="courses.length > 0; else: noData">
@@ -16,14 +16,14 @@
           ></app-course-card>
         </ng-container>
         <div class="loaderTab">
-          <button (click)="loadMore()">Load More</button>
+          <button (click)="loadMore()">{{"PAGES.COURSES.LOAD_MORE" | translate}}</button>
         </div>
       </ng-container>
     </ng-container>
 
     <ng-template #noData>
       <div class="no-data">
-        No data. Feel free to add new course
+        {{"PAGES.COURSES.NO_DATA" | translate}}
       </div>
     </ng-template>
   </div>
