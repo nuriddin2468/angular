@@ -19,6 +19,8 @@ import { DateControlComponent } from './components/form-controls/date-control/da
 import { DurationControlComponent } from './components/form-controls/duration-control/duration-control.component';
 import { AutocompleteControlComponent } from './components/form-controls/autocomplete-control/autocomplete-control.component';
 import { FormsModule } from '@angular/forms';
+import { ShowErrorComponent } from './components/show-error/show-error.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 const components = [
@@ -49,25 +51,28 @@ const directives = [
     LoadingBlockComponent,
     DateControlComponent,
     DurationControlComponent,
-    AutocompleteControlComponent
+    AutocompleteControlComponent,
+    ShowErrorComponent
 
   ],
-  exports: [
-    ...components,
-    ...pipes,
-    ...directives,
-    LoadingBlockComponent,
-    DurationControlComponent,
-    DateControlComponent,
-    AutocompleteControlComponent
-  ],
+    exports: [
+        ...components,
+        ...pipes,
+        ...directives,
+        LoadingBlockComponent,
+        DurationControlComponent,
+        DateControlComponent,
+        AutocompleteControlComponent,
+        ShowErrorComponent
+    ],
   imports: [
     CommonModule,
     RouterOutlet,
     RouterLink,
     MatProgressSpinnerModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ]
 })
 export class SharedModule { }

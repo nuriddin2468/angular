@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '@modules/courses/types/course';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CoursesActions } from '@modules/courses/+state/actions';
-import { selectAllCourses } from '@modules/courses/+state/reducers';
+import { CoursesActions, CoursesSelectors } from '@modules/courses/+state';
 
 @Component({
   selector: 'app-courses',
@@ -11,7 +10,7 @@ import { selectAllCourses } from '@modules/courses/+state/reducers';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  courses$ = this.store.select(selectAllCourses);
+  courses$ = this.store.select(CoursesSelectors.selectAllCourses);
 
   constructor(
     private router: Router,

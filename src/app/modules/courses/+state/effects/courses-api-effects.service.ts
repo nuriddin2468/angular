@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CoursesService } from '@modules/courses/services/courses.service';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { CoursesActions, CoursesApiActions } from '@modules/courses/+state/actions';
-import { concatMap, exhaustMap, forkJoin, map, mergeMap, of, switchMap } from 'rxjs';
+import { CoursesActions, CoursesApiActions, CoursesSelectors } from '@modules/courses/+state';
+import { catchError, concatMap, exhaustMap, forkJoin, map, mergeMap, of, switchMap, tap, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectAllCourses } from '@modules/courses/+state/reducers';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class CoursesApiEffectsService {
@@ -12,7 +13,9 @@ export class CoursesApiEffectsService {
   constructor(
     private coursesService: CoursesService,
     private actions$: Actions,
-    private store: Store
+    private store: Store,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -30,7 +33,7 @@ export class CoursesApiEffectsService {
   loadMoreCourses$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CoursesActions.loadMoreCourses),
-      concatLatestFrom(() => this.store.select(selectAllCourses)),
+      concatLatestFrom(() => this.store.select(CoursesSelectors.selectAllCourses)),
       concatMap(([action, courses]) => {
         return this.coursesService.fetchCourses(5, courses.length).pipe(
           map(courses => CoursesApiActions.coursesLoadedMore({ courses }))
@@ -77,6 +80,13 @@ export class CoursesApiEffectsService {
       ofType(CoursesActions.createCourse),
       mergeMap(({ course }) => {
         return this.coursesService.createCourse(course);
+      }),
+      tap(() => this.router.navigate(['/courses'])),
+      catchError(err => {
+        this.snackBar.open('Something went wrong, please try again', 'dismiss', {
+          duration: 2000
+        });
+        return throwError(err);
       })
     );
   }, { dispatch: false });
@@ -86,6 +96,13 @@ export class CoursesApiEffectsService {
       ofType(CoursesActions.updateCourse),
       mergeMap(({ course }) => {
         return this.coursesService.updateCourse(course);
+      }),
+      tap(() => this.router.navigate(['/courses'])),
+      catchError(err => {
+        this.snackBar.open('Something went wrong, please try again', 'dismiss', {
+          duration: 2000
+        });
+        return throwError(err);
       })
     );
   }, { dispatch: false });

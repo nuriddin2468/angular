@@ -3,6 +3,6 @@
   <label [innerHTML]="data.question"></label>
 </div>
 <div>
-  <button (click)="dialogRef.close(true)">OK</button>
-  <button (click)="dialogRef.close(false)">Cancel</button>
+  <button (click)="dialogRef.close(true)">{{"SHARED.DIALOG.OK" | translate}}</button>
+  <button (click)="dialogRef.close(false)">{{"SHARED.DIALOG.CANCEL" | translate}}</button>
 </div>

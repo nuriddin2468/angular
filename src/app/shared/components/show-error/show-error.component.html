@@ -1,0 +1,32 @@
+<ng-container *ngIf="showError && control">
+  <div
+    *ngIf="!!control.hasError('min')"
+    class="error"
+  >
+    {{'SHARED.SHOW_ERROR.MIN' | translate : {
+    name: name,
+    length: control.errors['min'].min
+  }
+    }}
+  </div>
+
+  <div
+    *ngIf="!!control.hasError('required')"
+    class="error"
+    [innerHTML]="'SHARED.SHOW_ERROR.REQUIRED' | translate : {
+    name: name | titlecase
+  }"
+  >
+  </div>
+
+  <div
+    *ngIf="!!control.hasError('maxLength')"
+    class="error"
+    [innerHTML]="'SHARED.SHOW_ERROR.MAX_LENGTH' | translate : {
+    name: name | titlecase,
+    length: control.errors['maxLength'].maxLength
+    }"
+  >
+  </div>
+
+</ng-container>
